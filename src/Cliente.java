@@ -1,11 +1,10 @@
-public class Cliente {
+public class Cliente extends Identificador{
 
-    private String nome;
     private long nif;
     private ContaBancaria conta;
 
     public Cliente(String nome, long nif, ContaBancaria conta) {
-        this.nome = nome;
+        super(nome);
         this.nif = nif;
         this.conta = conta;
     }

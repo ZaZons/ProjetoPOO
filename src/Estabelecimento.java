@@ -1,13 +1,12 @@
 import java.util.LinkedList;
 
-public class Estabelecimento {
-    private String nome;
+public class Estabelecimento extends Identificador{
     private float receitas;
     private LinkedList<Transacao> transacoesList;
     private LinkedList<Cliente> clientesList;
 
     public Estabelecimento(String nome, float receitas, LinkedList<Transacao> transacoesList, LinkedList<Cliente> clientesList) {
-        this.nome = nome;
+        super(nome);
         this.receitas = receitas;
         this.transacoesList = transacoesList;
         this.clientesList = clientesList;
