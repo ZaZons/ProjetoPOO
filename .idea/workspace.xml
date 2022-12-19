@@ -1,30 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7d30b703-a4f5-4e77-afa8-47ac0b737a9d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/tiagogomes.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjetoPOO.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CartaoDebito.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Cliente.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ContaBancaria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Data.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Estabelecimento.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MetodoPagamento.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Numerario.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Transacao.java" afterDir="false" />
+    <list default="true" id="7d30b703-a4f5-4e77-afa8-47ac0b737a9d" name="Changes" comment="First commit">
+      <change beforePath="$PROJECT_DIR$/src/MetodoPagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MetodoPagamento.java" afterDir="false" />
     </list>
-    <list id="71c57d53-6221-4039-9a75-b9ae74b7b560" name="Changes by dansantos" comment="">
-      <change afterPath="$PROJECT_DIR$/src/CartaoCredito.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MBWay.java" afterDir="false" />
-    </list>
+    <list id="71c57d53-6221-4039-9a75-b9ae74b7b560" name="Changes by dansantos" comment="Changes by dansantos" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,7 +68,23 @@
       <workItem from="1671018502676" duration="4248000" />
       <workItem from="1671103485455" duration="1214000" />
       <workItem from="1671107972071" duration="1613000" />
+      <workItem from="1671449131253" duration="571000" />
     </task>
+    <task id="LOCAL-00001" summary="First commit">
+      <created>1671449170236</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1671449170236</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Changes by dansantos">
+      <created>1671449199502</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1671449199502</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -104,6 +100,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="First commit" />
+    <MESSAGE value="Changes by dansantos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by dansantos" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
