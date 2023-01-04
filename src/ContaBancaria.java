@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 public class ContaBancaria {
-    //private Cliente cliente;
+    private Cliente cliente;
     private double saldo;
     private LinkedList<Transacao> transacoesList;
     private LinkedList<MetodoPagamento> metodosPagamentoList;
@@ -13,9 +13,9 @@ public class ContaBancaria {
         this.metodosPagamentoList = new LinkedList<>();
     }
 
-//    public Cliente getCliente() {
-//        return cliente;
-//    }
+    public Cliente getCliente() {
+        return cliente;
+    }
 
     public double getSaldo() {
         return saldo;
@@ -29,15 +29,22 @@ public class ContaBancaria {
         return metodosPagamentoList;
     }
 
-    public void addTransacao(double valor) {
-        Data data = new Data(0, 0, 0);
-        Transacao transacao = new Transacao(data, 0, valor);
+    public void addTransacao(MetodoPagamento metodo, Data data, int hora, double valor) {
+        Transacao transacao = new Transacao(data, hora, valor);
 
         if (transacoesList.contains(transacao)) {
             return;
         }
 
+        addMetodoPagamento(metodo);
+
         transacoesList.add(transacao);
         saldo -= valor;
+    }
+
+    public void addMetodoPagamento(MetodoPagamento metodo) {
+        if (!metodosPagamentoList.contains(metodo)) {
+            metodosPagamentoList.add(metodo);
+        }
     }
 }

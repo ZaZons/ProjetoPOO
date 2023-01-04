@@ -11,20 +11,20 @@ public class CartaoCredito extends CartaoDebito{
     }
 
     @Override
-    public void pagar(int pin, double novoValor) {
+    public String efetuarPagamento(int pin, Data data, int hora, double valor) {
+        if (valor <= 0) {
+            return "Valor tem de ser maior positivo";
+        }
+
         if (!verificarCodigo(pin)) {
-            return;
+            return "Pagamento rejeitado, PIN errado";
         }
 
-        if (novoValor > conta.getSaldo()) {
-            return;
+        if (valor > limite) {
+            return "Pagamento rejeitado, limite excedido";
         }
 
-        this.setValor(novoValor);
-        conta.addTransacao(valor);
-    }
-
-    public boolean verificarLimite() {
-        return limite > valor;
+        conta.addTransacao(this, data, hora, valor);
+        return "Pagamento confirmado";
     }
 }

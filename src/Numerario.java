@@ -1,4 +1,4 @@
-public class Numerario extends MetodoPagamento {
+public class Numerario implements MetodoPagamento {
     private double valorEntregue;
 
     public double getValorEntregue() {

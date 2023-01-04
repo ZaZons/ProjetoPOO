@@ -1,22 +1,18 @@
 import java.util.LinkedList;
 
 public class Estabelecimento extends Identificador{
-    private float receitas;
+    private double receitas;
     private LinkedList<Transacao> transacoesList;
     private LinkedList<Cliente> clientesList;
 
-    public Estabelecimento(String nome, float receitas, LinkedList<Transacao> transacoesList, LinkedList<Cliente> clientesList) {
+    public Estabelecimento(String nome, float receitas) {
         super(nome);
         this.receitas = receitas;
-        this.transacoesList = transacoesList;
-        this.clientesList = clientesList;
+        this.transacoesList = new LinkedList<>();
+        this.clientesList = new LinkedList<>();
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public float getReceitas() {
+    public double getReceitas() {
         return receitas;
     }
 
@@ -32,6 +28,7 @@ public class Estabelecimento extends Identificador{
         if(transacoesList.contains(transacao)) {
             return;
         }
+
         transacoesList.add(transacao);
     }
 
@@ -39,6 +36,9 @@ public class Estabelecimento extends Identificador{
         if(clientesList.contains(cliente)) {
             return;
         }
+
         clientesList.add(cliente);
     }
+
+
 }

@@ -1,2 +1,3 @@
-public class MetodoPagamento {
+public interface MetodoPagamento {
+
 }

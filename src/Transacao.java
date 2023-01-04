@@ -2,7 +2,8 @@ public class Transacao {
     private Data data;
     private int hora;
     private double valor;
-    // todo private MetodoPagamento metodoPagamento;
+    private MetodoPagamento metodoPagamento;
+    private Cliente cliente;
 
     public Transacao(Data data, int hora, double valor) {
         this.data = data;

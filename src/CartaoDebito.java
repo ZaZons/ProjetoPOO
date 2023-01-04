@@ -1,4 +1,4 @@
-public class CartaoDebito extends MetodoPagamento{
+public class CartaoDebito implements MetodoPagamento {
     protected long id;
     protected ContaBancaria conta;
     protected Data dataValidade;
@@ -15,13 +15,17 @@ public class CartaoDebito extends MetodoPagamento{
         return id;
     }
 
-    public void pagar(int pin, double novoValor) {
-        if (!verificarCodigo(pin)) {
-            return;
+    public String efetuarPagamento(int pin, Data data, int hora, double valor) {
+        if (valor <= 0) {
+            return "Valor tem de ser maior positivo";
         }
 
-        if (novoValor > conta.getSaldo()) {
-            return;
+        if (!verificarCodigo(pin)) {
+            return "Pagamento rejeitado, PIN errado";
+        }
+
+        if (valor > conta.getSaldo()) {
+            return "Pagamento rejeitado, saldo insuficiente";
         }
 
         this.setValor(novoValor);

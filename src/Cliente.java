@@ -1,5 +1,4 @@
 public class Cliente extends Identificador{
-
     private long nif;
     private ContaBancaria conta;
 
@@ -7,10 +6,6 @@ public class Cliente extends Identificador{
         super(nome);
         this.nif = nif;
         this.conta = conta;
-    }
-
-    public String getNome() {
-        return nome;
     }
 
     public long getNif() {
