@@ -28,8 +28,8 @@ public class CartaoDebito implements MetodoPagamento {
             return "Pagamento rejeitado, saldo insuficiente";
         }
 
-        this.setValor(novoValor);
-        conta.addTransacao(valor);
+        conta.addTransacao(this, data, hora, valor);
+        return "Pagamento confirmado";
     }
 
     protected boolean verificarCodigo(int pin) {
