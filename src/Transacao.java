@@ -3,12 +3,16 @@ public class Transacao {
     private int hora;
     private double valor;
     private MetodoPagamento metodoPagamento;
-    private Cliente cliente;
+    private ContaBancaria contaBancaria;
+    private Estabelecimento estabelecimento;
 
-    public Transacao(Data data, int hora, double valor) {
+    public Transacao(Data data, int hora, double valor, MetodoPagamento metodoPagamento, ContaBancaria contaBancaria, Estabelecimento estabelecimento) {
         this.data = data;
         this.hora = hora;
         this.valor = valor;
+        this.metodoPagamento = metodoPagamento;
+        this.contaBancaria = contaBancaria;
+        this.estabelecimento = estabelecimento;
     }
 
     public Data getData() {
@@ -21,5 +25,17 @@ public class Transacao {
 
     public double getValor() {
         return valor;
+    }
+
+    /**public MetodoPagamento getMetodoPagamento() {
+        return metodoPagamento;
+    }**/
+
+    public ContaBancaria getContaBancaria() {
+        return contaBancaria;
+    }
+
+    public Estabelecimento getEstabelecimento() {
+        return estabelecimento;
     }
 }

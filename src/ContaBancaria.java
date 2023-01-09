@@ -29,8 +29,8 @@ public class ContaBancaria {
         return metodosPagamentoList;
     }
 
-    public void addTransacao(MetodoPagamento metodo, Data data, int hora, double valor) {
-        Transacao transacao = new Transacao(data, hora, valor);
+    public void addTransacao(MetodoPagamento metodo, Data data, int hora, double valor, Estabelecimento estabelecimento) {
+        Transacao transacao = new Transacao(data, hora, valor, metodo, this, estabelecimento); //TODO
 
         if (transacoesList.contains(transacao)) {
             return;
