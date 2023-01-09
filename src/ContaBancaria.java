@@ -30,7 +30,7 @@ public class ContaBancaria {
     }
 
     public void addTransacao(MetodoPagamento metodo, Data data, int hora, double valor, Estabelecimento estabelecimento) {
-        Transacao transacao = new Transacao(data, hora, valor, metodo, this, estabelecimento); //TODO
+        Transacao transacao = new Transacao(data, hora, valor, metodo, this.cliente, estabelecimento);
 
         if (transacoesList.contains(transacao)) {
             return;
