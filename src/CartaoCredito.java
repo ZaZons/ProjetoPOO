@@ -9,9 +9,8 @@ public class CartaoCredito extends CartaoDebito{
         super(id, conta, dataValidade, pin);
         this.limite = limite;
     }
-    @Override
-    public String continuarPagamento() {
-        System.out.println("shablau");
-        return "";
+
+    public boolean verificarLimite(double valor) {
+        return conta.getSaldo() - valor < -limite;
     }
 }

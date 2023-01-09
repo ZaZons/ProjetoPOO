@@ -31,9 +31,9 @@ public class Transacao {
         return cliente;
     }
 
-    /**public MetodoPagamento getMetodoPagamento() {
+    public MetodoPagamento getMetodoPagamento() {
         return metodoPagamento;
-    }**/
+    }
 
     public Estabelecimento getEstabelecimento() {
         return estabelecimento;

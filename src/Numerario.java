@@ -1,7 +1,17 @@
-/**public class Numerario implements MetodoPagamento {
-    private double valorEntregue;
+public class Numerario extends MetodoPagamento {
+    private final double valorEntregue;
+
+    public Numerario(double valorEntregue) {
+        this.valorEntregue = valorEntregue;
+    }
 
     public double getValorEntregue() {
         return valorEntregue;
     }
-}**/
+
+    protected void continuarPagamento(double valor, Data data, int hora, Estabelecimento estabelecimento) {
+        Cliente clienteAnonimo = new Cliente("Consumidor final", 999999990);
+        Transacao transacao = new Transacao(data, hora, valor, this, clienteAnonimo, estabelecimento);
+        estabelecimento.addTransacao(transacao);
+    }
+}

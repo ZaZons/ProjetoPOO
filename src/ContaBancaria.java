@@ -11,6 +11,7 @@ public class ContaBancaria {
         this.saldo = saldo;
         this.transacoesList = new LinkedList<>();
         this.metodosPagamentoList = new LinkedList<>();
+        cliente.setConta(this);
     }
 
     public Cliente getCliente() {
@@ -29,20 +30,18 @@ public class ContaBancaria {
         return metodosPagamentoList;
     }
 
-    public void addTransacao(MetodoPagamento metodo, Data data, int hora, double valor, Estabelecimento estabelecimento) {
-        Transacao transacao = new Transacao(data, hora, valor, metodo, this.cliente, estabelecimento);
-
+    public void addTransacao(Transacao transacao) {
         if (transacoesList.contains(transacao)) {
             return;
         }
 
-        addMetodoPagamento(metodo);
+        addMetodoPagamento(transacao.getMetodoPagamento());
 
-        estabelecimento.addCliente(cliente);
-        estabelecimento.addTransacao(transacao);
+        transacao.getEstabelecimento().addCliente(cliente);
+        transacao.getEstabelecimento().addTransacao(transacao);
 
         transacoesList.add(transacao);
-        saldo -= valor;
+        saldo -= transacao.getValor();
     }
 
     public void addMetodoPagamento(MetodoPagamento metodo) {

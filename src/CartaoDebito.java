@@ -15,23 +15,9 @@ public class CartaoDebito extends MetodoPagamento {
         return id;
     }
 
-    public String continuarPagamento() {
-        System.out.println("abla");
-        return "";
-        //        int verificado = verificacao(pin, valor);
-//
-//        if (verificado == -1) {
-//            return "Pagamento rejeitado, o valor tem de ser positivo";
-//        } else if (verificado == -2) {
-//            return "Pagamento rejeitado, PIN errado";
-//        }
-//
-//        if (valor > conta.getSaldo()) {
-//            return "Pagamento rejeitado, saldo insuficiente";
-//        }
-//
-//        conta.addTransacao(this, data, hora, valor, estabelecimento);
-//        return "Pagamento confirmado";
+    protected void continuarPagamento(double valor, Data data, int hora, Estabelecimento estabelecimento) {
+        Transacao transacao = new Transacao(data, hora, valor, this, conta.getCliente(), estabelecimento);
+        conta.addTransacao(transacao);
     }
 
     protected int verificacao(int pin, double valor) {
