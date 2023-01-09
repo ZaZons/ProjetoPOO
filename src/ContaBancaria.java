@@ -6,8 +6,8 @@ public class ContaBancaria {
     private LinkedList<Transacao> transacoesList;
     private LinkedList<MetodoPagamento> metodosPagamentoList;
 
-    public ContaBancaria(/*Cliente cliente, */double saldo) {
-      //  this.cliente = cliente;
+    public ContaBancaria(Cliente cliente, double saldo) {
+        this.cliente = cliente;
         this.saldo = saldo;
         this.transacoesList = new LinkedList<>();
         this.metodosPagamentoList = new LinkedList<>();
@@ -37,6 +37,9 @@ public class ContaBancaria {
         }
 
         addMetodoPagamento(metodo);
+
+        estabelecimento.addCliente(cliente);
+        estabelecimento.addTransacao(transacao);
 
         transacoesList.add(transacao);
         saldo -= valor;

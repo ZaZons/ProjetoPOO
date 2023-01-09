@@ -1,4 +1,4 @@
-public class CartaoDebito implements MetodoPagamento {
+public class CartaoDebito extends MetodoPagamento {
     protected long id;
     protected ContaBancaria conta;
     protected Data dataValidade;
@@ -15,21 +15,35 @@ public class CartaoDebito implements MetodoPagamento {
         return id;
     }
 
-    public String efetuarPagamento(int pin, Data data, int hora, double valor) {
+    public String continuarPagamento() {
+        System.out.println("abla");
+        return "";
+        //        int verificado = verificacao(pin, valor);
+//
+//        if (verificado == -1) {
+//            return "Pagamento rejeitado, o valor tem de ser positivo";
+//        } else if (verificado == -2) {
+//            return "Pagamento rejeitado, PIN errado";
+//        }
+//
+//        if (valor > conta.getSaldo()) {
+//            return "Pagamento rejeitado, saldo insuficiente";
+//        }
+//
+//        conta.addTransacao(this, data, hora, valor, estabelecimento);
+//        return "Pagamento confirmado";
+    }
+
+    protected int verificacao(int pin, double valor) {
         if (valor <= 0) {
-            return "Valor tem de ser maior positivo";
+            return -1;
         }
 
         if (!verificarCodigo(pin)) {
-            return "Pagamento rejeitado, PIN errado";
+            return -2;
         }
 
-        if (valor > conta.getSaldo()) {
-            return "Pagamento rejeitado, saldo insuficiente";
-        }
-
-        conta.addTransacao(this, data, hora, valor);
-        return "Pagamento confirmado";
+        return 0;
     }
 
     protected boolean verificarCodigo(int pin) {

@@ -2,10 +2,9 @@ public class Cliente extends Identificador{
     private long nif;
     private ContaBancaria conta;
 
-    public Cliente(String nome, long nif, ContaBancaria conta) {
+    public Cliente(String nome, long nif) {
         super(nome);
         this.nif = nif;
-        this.conta = conta;
     }
 
     public long getNif() {
@@ -14,5 +13,9 @@ public class Cliente extends Identificador{
 
     public ContaBancaria getConta() {
         return conta;
+    }
+
+    public void setConta(ContaBancaria conta) {
+        this.conta = conta;
     }
 }
