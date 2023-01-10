@@ -32,4 +32,13 @@ public class Estabelecimento extends Identificador{
 
         clientesList.add(cliente);
     }
+
+    public String toString(String nivel) {
+        return "Estabelecimento {" + "\n\t" + nivel +
+                "Nome = '" + nome + "',\n\t" + nivel +
+                "Valor das receitas = " + receitas + ",\n\t" + nivel +
+                "Transacoes = " + Transacao.listarTransacoes(transacoesList, nivel + "\t") + ",\n\t" + nivel +
+                "Clientes = " + Cliente.listarClientes(clientesList, nivel + "\t") + "\n" + nivel +
+                "}";
+    }
 }

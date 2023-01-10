@@ -1,7 +1,7 @@
 public class Data {
-    private int dia;
-    private int mes;
-    private int ano;
+    private final int dia;
+    private final int mes;
+    private final int ano;
 
     public Data(int dia, int mes, int ano) {
         this.dia = dia;
@@ -19,5 +19,10 @@ public class Data {
 
     public int getAno() {
         return ano;
+    }
+
+    @Override
+    public String toString() {
+        return dia + "/" + mes + "/" + ano;
     }
 }

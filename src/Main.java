@@ -23,7 +23,9 @@ public class Main {
         creditoDoToze.efetuarPagamento(10, 12345, new Data(1, 1, 1), 14, cafeDoJoao);
 
         // resultado final, o joao ficou com 20 de receitas e o toze com -2 de guito no banco
-        System.out.println(cafeDoJoao.getReceitas());
+        System.out.println(cafeDoJoao.toString(""));
         System.out.println(contaDoToze.getSaldo());
     }
+
+
 }
