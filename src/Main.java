@@ -25,5 +25,11 @@ public class Main {
         // resultado final, o joao ficou com 20 de receitas e o toze com -2 de guito no banco
         System.out.println(cafeDoJoao.getReceitas());
         System.out.println(contaDoToze.getSaldo());
+
+        toze.registarCliente();
+
+
+        Cliente jajao = Cliente.registarCliente();
     }
+
 }

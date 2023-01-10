@@ -1,5 +1,6 @@
 public class CartaoCredito extends CartaoDebito{
-    protected double limite;
+    protected final double limite;
+    protected double gastos;
 
     public double getLimite() {
         return limite;
@@ -11,6 +12,10 @@ public class CartaoCredito extends CartaoDebito{
     }
 
     public boolean verificarLimite(double valor) {
-        return conta.getSaldo() - valor < -limite;
+        return gastos + valor <= limite;
+    }
+
+    public void addGastos(double valor) {
+        gastos += valor;
     }
 }
