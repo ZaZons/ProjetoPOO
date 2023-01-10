@@ -15,22 +15,22 @@ public class CartaoDebito extends MetodoPagamento {
         return id;
     }
 
-    protected void continuarPagamento(double valor, Data data, int hora, Estabelecimento estabelecimento) {
-        Transacao transacao = new Transacao(data, hora, valor, this, conta.getCliente(), estabelecimento);
+    protected void continuarPagamento(double valor, Data data, Estabelecimento estabelecimento) {
+        Transacao transacao = new Transacao(data, valor, this, conta.getCliente(), estabelecimento);
         conta.addTransacao(transacao);
     }
 
-    protected int verificacao(int pin, double valor) {
-        if (valor <= 0) {
-            return -1;
-        }
-
-        if (!verificarCodigo(pin)) {
-            return -2;
-        }
-
-        return 0;
-    }
+//    protected int verificacao(int pin, double valor) {
+//        if (valor <= 0) {
+//            return -1;
+//        }
+//
+//        if (!verificarCodigo(pin)) {
+//            return -2;
+//        }
+//
+//        return 0;
+//    }
 
     protected boolean verificarCodigo(int pin) {
         return this.pin == pin;

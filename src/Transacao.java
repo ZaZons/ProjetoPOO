@@ -2,15 +2,13 @@ import java.util.LinkedList;
 
 public class Transacao {
     private final Data data;
-    private final int hora;
     private final double valor;
     private final MetodoPagamento metodoPagamento;
     private final Cliente cliente;
     private final Estabelecimento estabelecimento;
 
-    public Transacao(Data data, int hora, double valor, MetodoPagamento metodoPagamento, Cliente cliente, Estabelecimento estabelecimento) {
+    public Transacao(Data data, double valor, MetodoPagamento metodoPagamento, Cliente cliente, Estabelecimento estabelecimento) {
         this.data = data;
-        this.hora = hora;
         this.valor = valor;
         this.metodoPagamento = metodoPagamento;
         this.cliente = cliente;
@@ -19,10 +17,6 @@ public class Transacao {
 
     public Data getData() {
         return data;
-    }
-
-    public int getHora() {
-        return hora;
     }
 
     public double getValor() {
@@ -44,9 +38,8 @@ public class Transacao {
     public String toString(String nivel) {
         String metodoPagamentoStr = metodoPagamento.getClass().toString().replace("class ", "");
 
-        return "Transacao " + data + " " + hora + "h {\n\t" + nivel + cliente.toString(nivel + "\t") + ",\n\t" + nivel +
+        return "Transacao " + data + " {\n\t" + nivel + cliente.toString(nivel + "\t") + ",\n\t" + nivel +
                 "Data = " + data + ",\n\t" + nivel +
-                "Hora = " + hora + ",\n\t" + nivel +
                 "Valor = " + valor + ",\n\t" + nivel +
                 "Metodo de pagamento = " + metodoPagamentoStr + ",\n\t" + nivel +
                 "Estabelecimento = '" + estabelecimento.getNome() + "'\n" + nivel +

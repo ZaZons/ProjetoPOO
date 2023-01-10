@@ -1,5 +1,5 @@
 public class MetodoPagamento {
-    public void efetuarPagamento(double valor, int pin, Data data, int hora, Estabelecimento estabelecimento) {
+    public void efetuarPagamento(double valor, int pin, Estabelecimento estabelecimento) {
         if (valor <= 0) {
             System.out.println("Transacao rejeitada, o valor deve ser positivo.");
             return;
@@ -24,7 +24,7 @@ public class MetodoPagamento {
                 }
             }
 
-            ((CartaoDebito) this).continuarPagamento(valor, data, hora, estabelecimento);
+            ((CartaoDebito) this).continuarPagamento(valor, new Data(), estabelecimento);
         }
 
         if (this instanceof Numerario) {
@@ -33,7 +33,7 @@ public class MetodoPagamento {
                 return;
             }
 
-            ((Numerario) this).continuarPagamento(valor, data, hora, estabelecimento);
+            ((Numerario) this).continuarPagamento(valor, new Data(), estabelecimento);
         }
 
         System.out.println("Transacao aceite");

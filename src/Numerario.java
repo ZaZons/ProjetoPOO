@@ -9,9 +9,9 @@ public class Numerario extends MetodoPagamento {
         return valorEntregue;
     }
 
-    protected void continuarPagamento(double valor, Data data, int hora, Estabelecimento estabelecimento) {
+    protected void continuarPagamento(double valor, Data data, Estabelecimento estabelecimento) {
         Cliente clienteAnonimo = new Cliente("Consumidor final", 999999990);
-        Transacao transacao = new Transacao(data, hora, valor, this, clienteAnonimo, estabelecimento);
+        Transacao transacao = new Transacao(data, valor, this, clienteAnonimo, estabelecimento);
         estabelecimento.addTransacao(transacao);
     }
 }
