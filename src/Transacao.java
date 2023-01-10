@@ -38,7 +38,8 @@ public class Transacao {
     public String toString(String nivel) {
         String metodoPagamentoStr = metodoPagamento.getClass().toString().replace("class ", "");
 
-        return "Transacao " + data + " {\n\t" + nivel + cliente.toString(nivel + "\t") + ",\n\t" + nivel +
+        return "Transacao " + data + " {\n\t" + nivel +
+                "Cliente {" + "\n" + cliente.toString(nivel + "\t") + "\n\t" + nivel + "},\n\t" + nivel +
                 "Data = " + data + ",\n\t" + nivel +
                 "Valor = " + valor + ",\n\t" + nivel +
                 "Metodo de pagamento = " + metodoPagamentoStr + ",\n\t" + nivel +

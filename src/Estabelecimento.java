@@ -16,6 +16,14 @@ public class Estabelecimento extends Identificador{
         return receitas;
     }
 
+    public LinkedList<Transacao> getTransacoesList() {
+        return transacoesList;
+    }
+
+    public LinkedList<Cliente> getClientesList() {
+        return clientesList;
+    }
+
     public void addTransacao(Transacao transacao) {
         if(transacoesList.contains(transacao)) {
             return;
@@ -34,11 +42,21 @@ public class Estabelecimento extends Identificador{
     }
 
     public String toString(String nivel) {
+        StringBuilder clientesStr = new StringBuilder();
+
+        for (Cliente c : clientesList) {
+            clientesStr.append("\n\t\t");
+            clientesStr.append(nivel);
+            clientesStr.append("'");
+            clientesStr.append(c.getNome());
+            clientesStr.append("'");
+        }
+
         return "Estabelecimento {" + "\n\t" + nivel +
                 "Nome = '" + nome + "',\n\t" + nivel +
                 "Valor das receitas = " + receitas + ",\n\t" + nivel +
                 "Transacoes = " + Transacao.listarTransacoes(transacoesList, nivel + "\t") + ",\n\t" + nivel +
-                "Clientes = " + Cliente.listarClientes(clientesList, nivel + "\t") + "\n" + nivel +
+                "Clientes [" + clientesStr + "\n\t" + nivel + "]\n" + nivel +
                 "}";
     }
 }

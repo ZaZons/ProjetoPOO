@@ -30,6 +30,39 @@ public class ContaBancaria {
         return metodosPagamentoList;
     }
 
+    public String toString(String nivel) {
+        return "Conta Bancaria {" + "\n\t" + nivel +
+                "Cliente = '" + cliente.getNome() + "',\n\t" + nivel +
+                "Saldo = " + saldo + ",\n\t" + nivel +
+                "Transacoes " + Transacao.listarTransacoes(transacoesList, nivel + "\t") + ",\n\t" + nivel +
+                "Metodos de pagamento " + listarMetodosPagamento(metodosPagamentoList, nivel + "\t") + "\t" + nivel + "]\n" + nivel +
+                "}";
+    }
+
+    public static String listarMetodosPagamento(LinkedList<MetodoPagamento> metodosPagamentoList, String nivel) {
+        StringBuilder metodosPagamentoStr = new StringBuilder();
+
+        if (metodosPagamentoList.isEmpty()) {
+            metodosPagamentoStr.append("Nao existem metodos de pagamento associados a esta conta");
+        } else {
+            metodosPagamentoStr.append("[");
+            for (MetodoPagamento metodo : metodosPagamentoList) {
+                if (metodo instanceof CartaoDebito) {
+                    metodosPagamentoStr.append("\n\t");
+                    metodosPagamentoStr.append(nivel);
+                    metodosPagamentoStr.append(((CartaoDebito) metodo).toString(nivel + "\t"));
+                }
+
+                if (!metodosPagamentoList.getLast().equals(metodo)) {
+                    metodosPagamentoStr.append(",");
+                }
+            }
+            metodosPagamentoStr.append("\n");
+        }
+
+        return metodosPagamentoStr.toString();
+    }
+
     public void addTransacao(Transacao transacao) {
         if (transacoesList.contains(transacao)) {
             return;

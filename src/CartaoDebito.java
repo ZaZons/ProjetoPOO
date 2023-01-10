@@ -20,7 +20,14 @@ public class CartaoDebito extends MetodoPagamento {
         conta.addTransacao(transacao);
     }
 
-//    protected int verificacao(int pin, double valor) {
+    public String toString(String nivel) {
+        return "CartaoDebito {" + "\n\t" + nivel +
+                "Id = " + id + "\n\t" + nivel +
+                "Data de validade = " + dataValidade + "\n" + nivel +
+                '}';
+    }
+
+    //    protected int verificacao(int pin, double valor) {
 //        if (valor <= 0) {
 //            return -1;
 //        }

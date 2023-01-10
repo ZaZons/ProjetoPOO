@@ -4,6 +4,15 @@ public class MBWay extends CartaoCredito {
     }
 
     @Override
+    public String toString(String nivel) {
+        return "MBWay {" + "\n\t" + nivel +
+                "Id = " + id + "\n\t" + nivel +
+                "Data de validade = " + dataValidade + "\n\t" + nivel +
+                "Limite = " + limite + "\n" + nivel +
+                '}';
+    }
+
+    @Override
     public boolean verificarLimite(double valor) {
         return super.verificarLimite(valor) && gastos <= conta.getSaldo();
     }

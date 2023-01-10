@@ -26,10 +26,8 @@ public class Cliente extends Identificador{
     }
 
     public String toString(String nivel) {
-        return "Cliente = {" + "\n\t" + nivel +
-                "Nome = '" + nome + "'\n\t" + nivel +
-                "NIF = " + nif + "\n" + nivel +
-                "}";
+        return "\t" + nivel + "Nome = '" + nome + "',\n\t" + nivel +
+                "NIF = " + nif;
     }
 
     public static String listarClientes(LinkedList<Cliente> clientesList, String nivel) {
@@ -37,15 +35,14 @@ public class Cliente extends Identificador{
             return "Sem clientes";
         }
 
+        System.out.println("Clientes [");
         StringBuilder res = new StringBuilder();
-        res.append("[");
-
         for (Cliente c : clientesList) {
-            res.append("\n\t");
+            res.append(c.toString(nivel));
+
+            res.append(",\n\t");
             res.append(nivel);
-            res.append("'");
-            res.append(c.getNome());
-            res.append("'");
+            res.append(c.getConta().toString(nivel + "\t"));
 
             if (!clientesList.getLast().equals(c)) {
                 res.append(',');
@@ -79,35 +76,36 @@ public class Cliente extends Identificador{
         System.out.println("\nDeseja adicionar métodos de Pagamento? (S/N)");
         String opcao = scanner.nextLine();
         scanner.nextLine();
-        if(opcao == "S") {
+        if (opcao == "S") {
             System.out.println("Método pretendido:\n\t1. Debito\n\t2. Crédito\n\t3. MbWay");
             int opcaoMetodo = scanner.nextInt();
             scanner.nextLine();
 
-                    long id = novaConta.getMetodosPagamentoList().size() + 1;
-                    LocalDateTime dataDeHoje = LocalDateTime.now();
-                    Data dataDeValidade = new Data(dataDeHoje.getDayOfMonth(), dataDeHoje.getMonthValue(), dataDeHoje.getYear() + 4);
+            long id = novaConta.getMetodosPagamentoList().size() + 1;
+            LocalDateTime dataDeHoje = LocalDateTime.now();
+            Data dataDeValidade = new Data(dataDeHoje.getDayOfMonth(), dataDeHoje.getMonthValue(), dataDeHoje.getYear() + 4);
 
-                    System.out.println("Insira um Pin para este método: ");
-                    int pin = scanner.nextInt();
-                    scanner.nextLine();
+            System.out.println("Insira um Pin para este método: ");
+            int pin = scanner.nextInt();
+            scanner.nextLine();
 
-                    if(opcaoMetodo == 1) {
-                        novaConta.addMetodoPagamento(new CartaoDebito(id, novaConta, dataDeValidade, pin));
-                    }
-                    else {
-                        System.out.println("Insira o valor extra limite da conta: ");
+            if (opcaoMetodo == 1) {
+                novaConta.addMetodoPagamento(new CartaoDebito(id, novaConta, dataDeValidade, pin));
+            } else {
+                System.out.println("Insira o valor extra limite da conta: ");
 
-                        long limite = scanner.nextLong();
-                        scanner.nextLine();
-                        if (opcaoMetodo == 2) {
-                            novaConta.addMetodoPagamento(new CartaoCredito(id, novaConta, dataDeValidade, pin, limite));
-                        }else {
-                            novaConta.addMetodoPagamento(new MbWay(id, novaConta, dataDeValidade, pin, limite));
-                        }
-                    }
+                long limite = scanner.nextLong();
+                scanner.nextLine();
+                if (opcaoMetodo == 2) {
+                    novaConta.addMetodoPagamento(new CartaoCredito(id, novaConta, dataDeValidade, pin, limite));
+                } else {
+                    novaConta.addMetodoPagamento(new MBWay(id, novaConta, dataDeValidade, pin, limite));
+                }
+            }
 
-        return novoCliente;
+            return novoCliente;
+        }
+        return null;
     }
-
 }
+

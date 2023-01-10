@@ -11,6 +11,15 @@ public class CartaoCredito extends CartaoDebito{
         this.limite = limite;
     }
 
+    @Override
+    public String toString(String nivel) {
+        return "CartaoCredito {" + "\n\t" + nivel +
+                "Id = " + id + "\n\t" + nivel +
+                "Data de validade = " + dataValidade + "\n\t" + nivel +
+                "Limite = " + limite + "\n" + nivel +
+                '}';
+    }
+
     public boolean verificarLimite(double valor) {
         return gastos + valor <= limite;
     }
