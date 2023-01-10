@@ -1,10 +1,9 @@
-import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import java.util.LinkedList;
 
-public class Cliente extends Identificador{
+public class Cliente extends Identificador {
     private final long nif;
     private ContaBancaria conta;
 
@@ -71,43 +70,55 @@ public class Cliente extends Identificador{
 
         Cliente novoCliente = new Cliente(nome, nif);
 
-        System.out.println("Saldo inicial da conta: ");
-        Long saldo = scanner.nextLong();
+        System.out.println("\nSaldo inicial da conta: ");
+        long saldo = scanner.nextLong();
         scanner.nextLine();
         ContaBancaria novaConta = new ContaBancaria(novoCliente, saldo);
 
         System.out.println("\nDeseja adicionar métodos de Pagamento? (S/N)");
         String opcao = scanner.nextLine();
         scanner.nextLine();
-        if(opcao == "S") {
-            System.out.println("Método pretendido:\n\t1. Debito\n\t2. Crédito\n\t3. MbWay");
-            int opcaoMetodo = scanner.nextInt();
-            scanner.nextLine();
+        String opcaoRepeticao = "";
+        int validacaoPin;
+        do {
+            if (opcao.equals("S")) {
+                System.out.println("\nMétodo pretendido:\n\t1. Debito\n\t2. Crédito\n\t3. MbWay");
+                int opcaoMetodo = scanner.nextInt();
+                scanner.nextLine();
 
-                    long id = novaConta.getMetodosPagamentoList().size() + 1;
-                    LocalDateTime dataDeHoje = LocalDateTime.now();
-                    Data dataDeValidade = new Data(dataDeHoje.getDayOfMonth(), dataDeHoje.getMonthValue(), dataDeHoje.getYear() + 4);
-
-                    System.out.println("Insira um Pin para este método: ");
-                    int pin = scanner.nextInt();
+                long id = novaConta.getMetodosPagamentoList().size() + 1;
+                LocalDateTime dataDeHoje = LocalDateTime.now();
+                Data dataDeValidade = new Data(dataDeHoje.getDayOfMonth(), dataDeHoje.getMonthValue(), dataDeHoje.getYear() + 4);
+                int pin;
+                do {
+                    System.out.println("\nInsira um Pin para este método: ");
+                    pin = scanner.nextInt();
                     scanner.nextLine();
-
-                    if(opcaoMetodo == 1) {
-                        novaConta.addMetodoPagamento(new CartaoDebito(id, novaConta, dataDeValidade, pin));
+                    validacaoPin = String.valueOf(pin).length();
+                    if (validacaoPin != 4) {
+                        System.out.println("\nTamanho de pin inválido! 4444 -My audience awaits-");
                     }
-                    else {
-                        System.out.println("Insira o valor extra limite da conta: ");
+                } while (validacaoPin != 4);
 
-                        long limite = scanner.nextLong();
-                        scanner.nextLine();
-                        if (opcaoMetodo == 2) {
-                            novaConta.addMetodoPagamento(new CartaoCredito(id, novaConta, dataDeValidade, pin, limite));
-                        }else {
-                            novaConta.addMetodoPagamento(new MbWay(id, novaConta, dataDeValidade, pin, limite));
-                        }
+                if (opcaoMetodo == 1) {
+                    novaConta.addMetodoPagamento(new CartaoDebito(id, novaConta, dataDeValidade, pin));
+                } else {
+                    System.out.println("\nInsira o valor extra limite da conta: ");
+
+                    long limite = scanner.nextLong();
+                    scanner.nextLine();
+                    if (opcaoMetodo == 2) {
+                        novaConta.addMetodoPagamento(new CartaoCredito(id, novaConta, dataDeValidade, pin, limite));
+                    } else {
+                        novaConta.addMetodoPagamento(new MBWay(id, novaConta, dataDeValidade, pin, limite));
                     }
+                }
+                System.out.println("\nDeseja adicinar mais métoodos de pagamentos? (S/N)");
+                opcaoRepeticao = scanner.nextLine();
+                scanner.nextLine();
+            }
 
+        }while (opcaoRepeticao.equals("S"));
         return novoCliente;
     }
-
 }
