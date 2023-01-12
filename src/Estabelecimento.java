@@ -59,4 +59,8 @@ public class Estabelecimento extends Identificador{
                 "Clientes [" + clientesStr + "\n\t" + nivel + "]\n" + nivel +
                 "}";
     }
+
+    public void estatisticas() {
+
+    }
 }

@@ -35,7 +35,7 @@ public class ContaBancaria {
                 "Cliente = '" + cliente.getNome() + "',\n\t" + nivel +
                 "Saldo = " + saldo + ",\n\t" + nivel +
                 "Transacoes " + Transacao.listarTransacoes(transacoesList, nivel + "\t") + ",\n\t" + nivel +
-                "Metodos de pagamento " + listarMetodosPagamento(metodosPagamentoList, nivel + "\t") + "\t" + nivel + "]\n" + nivel +
+                listarMetodosPagamento(metodosPagamentoList, nivel + "\t") + "\t" + nivel + "]\n" + nivel +
                 "}";
     }
 
@@ -45,7 +45,7 @@ public class ContaBancaria {
         if (metodosPagamentoList.isEmpty()) {
             metodosPagamentoStr.append("Nao existem metodos de pagamento associados a esta conta");
         } else {
-            metodosPagamentoStr.append("[");
+            metodosPagamentoStr.append("Metodos de pagamento [");
             for (MetodoPagamento metodo : metodosPagamentoList) {
                 if (metodo instanceof CartaoDebito) {
                     metodosPagamentoStr.append("\n\t");
