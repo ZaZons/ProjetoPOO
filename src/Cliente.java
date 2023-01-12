@@ -93,7 +93,7 @@ public class Cliente extends Identificador {
                     scanner.nextLine();
                     validacaoPin = String.valueOf(pin).length();
                     if (validacaoPin != 4) {
-                        System.out.println("\nTamanho de pin inválido! 4444 -My audience awaits-");
+                        System.out.println("\nTamanho de pin inválido! 4444 -My audience awaits-"); // TODO
                     }
                 } while (validacaoPin != 4);
 
@@ -116,6 +116,7 @@ public class Cliente extends Identificador {
             }
 
         }while (opcaoRepeticao.equals("S"));
+
         return novoCliente;
     }
 }
