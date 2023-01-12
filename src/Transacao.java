@@ -6,13 +6,14 @@ public class Transacao {
     private final double valor;
     private final MetodoPagamento metodoPagamento;
     private final Cliente cliente;
-    //private final Estabelecimento estabelecimento = null; TODO
+    private final Estabelecimento estabelecimento;
 
-    public Transacao(Data data, double valor, MetodoPagamento metodoPagamento, Cliente cliente) {
+    public Transacao(Data data, double valor, MetodoPagamento metodoPagamento, Cliente cliente, Estabelecimento estabelecimento) {
         this.data = data;
         this.valor = valor;
         this.metodoPagamento = metodoPagamento;
         this.cliente = cliente;
+        this.estabelecimento = estabelecimento;
     }
 
     public Data getData() {
@@ -71,7 +72,7 @@ public class Transacao {
 
         return res.toString();
     }
-    public static Transacao registarTransacao(LinkedList<Cliente> clientesList) {
+    public static Transacao registarTransacao(LinkedList<Cliente> clientesList, Estabelecimento estabelecimento) {
         System.out.println("Clientes [");
         for (Cliente c : clientesList) {
             System.out.println("\t" + c.getNome());
@@ -133,9 +134,11 @@ public class Transacao {
             }
         }while(valorTransacao <= 0);
 
-        Transacao novaTransacao = new Transacao(new Data(), valorTransacao, metodoSelecionado, clienteTransacao);
+        Transacao novaTransacao = new Transacao(new Data(), valorTransacao, metodoSelecionado, clienteTransacao, estabelecimento);
 
         System.out.println("\n\n\t\tTransação efetuada!");
+
+        return novaTransacao;
     }
 
 }
