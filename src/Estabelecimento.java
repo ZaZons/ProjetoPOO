@@ -35,8 +35,14 @@ public class Estabelecimento extends Identificador{
     }
 
     public void addCliente(Cliente cliente) {
-        if(clientesList.contains(cliente)) {
+        if (clientesList.contains(cliente)) {
             return;
+        }
+
+        for (Cliente c : clientesList) {
+            if (c.getNif() == cliente.getNif()) {
+                return;
+            }
         }
 
         clientesList.add(cliente);
