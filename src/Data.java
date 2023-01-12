@@ -14,15 +14,6 @@ public class Data {
         this.hora = 0;
         this.minutos = 0;
     }
-
-    public Data(int dia, int mes, int ano, int hora, int minutos) {
-        this.dia = dia;
-        this.mes = mes;
-        this.ano = ano;
-        this.hora = hora;
-        this.minutos = minutos;
-    }
-
     public Data() {
         LocalDateTime currentTime = LocalDateTime.now();
         this.dia = currentTime.getDayOfMonth();
@@ -31,7 +22,6 @@ public class Data {
         this.hora = currentTime.getHour();
         this.minutos = currentTime.getMinute();
     }
-
     public int getDia() {
         return dia;
     }
@@ -43,7 +33,6 @@ public class Data {
     public int getAno() {
         return ano;
     }
-
     @Override
     public String toString() {
         return dia + "/" + mes + "/" + ano + " " + hora + ":" + minutos;

@@ -97,7 +97,7 @@ public class Transacao {
                 if (clienteTransacao == null) {
                     System.out.println("\nCliente inválido!");
                 }
-        }while(validacaoCliente != true);
+        }while(!validacaoCliente);
 
         MetodoPagamento metodoSelecionado = null;
         LinkedList<MetodoPagamento> metodosCliente = clienteTransacao.getConta().getMetodosPagamentoList();
@@ -122,7 +122,7 @@ public class Transacao {
             }
         }while(metodoSelecionado == null);
 
-        double valorTransacao = 0;
+        double valorTransacao;
 
         do {
             System.out.println("\nValor da transação: ");
