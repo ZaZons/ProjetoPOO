@@ -1,35 +1,53 @@
 public class Main {
     public static void main(String[] args) {
-        Estabelecimento cafeDoJoao = new Estabelecimento("Cafe do joao", 0);
-        Cliente toze = new Cliente("To Ze", 123);
-        ContaBancaria contaDoToze = new ContaBancaria(toze, 8);
-        CartaoDebito debitoDoToze = new CartaoDebito(1, contaDoToze, new Data(), 1234);
-        CartaoCredito creditoDoToze = new CartaoCredito(2, contaDoToze, new Data(), 12345, 2);
+        Estabelecimento cafeDoJoao = testValues();
+        int opcao;
 
-        // O Toze foi ao cafe do joao e decidiu pagar uma rodada ao pessoal em dinheiro, entregou 15 paus para pagar uma rodada de 10
-        Numerario rodadaAoPessoal = new Numerario(15);
-        rodadaAoPessoal.efetuarPagamento(10, 0, cafeDoJoao);
-        System.out.println(cafeDoJoao.getReceitas());
+        do {
+            opcao = menu();
 
-        // Mais tarde o toze tentou fazer o mm, mas como o valor era superior ao dinheiro q tinha em maos, o toze usou o seu cartao de credito
-        rodadaAoPessoal.efetuarPagamento(20, 0, cafeDoJoao);
+            System.out.print("\n");
+            switch (opcao) {
+                case 1:
+                    System.out.println(Transacao.listarTransacoes(cafeDoJoao.getTransacoesList(), ""));
+                    break;
+                case 2:
+                    System.out.println(Cliente.listarClientes(cafeDoJoao.getClientesList(), ""));
+                    break;
+                case 3:
+                    Cliente.registarCliente();
+                    break;
+            }
+            System.out.print("\n");
+        } while (opcao != 0);
+    }
 
-        debitoDoToze.efetuarPagamento(20, 123, cafeDoJoao);
-        debitoDoToze.efetuarPagamento(20, 1234, cafeDoJoao);
-        // O toze n tinha guito suficiente na conta ent teve de usar o de credito, q errou a primeira
-        creditoDoToze.efetuarPagamento(20, 12345, cafeDoJoao);
-        // ent o joao fez-lhe o jeitinho e dividiu a conta para metade, que o toze conseguiu pagar com o de credito
-        creditoDoToze.efetuarPagamento(10, 12345, cafeDoJoao);
-        creditoDoToze.efetuarPagamento(10, 12345, cafeDoJoao);
+    public static int menu() {
+        System.out.println("1. Listar transacoes");
+        System.out.println("2. Listar clientes");
+        System.out.println("3. Registar novo cliente");
+        System.out.println("4. Registar nova transacao");
+        System.out.println("5. Mostrar estatisticas");
+        System.out.println("6. Gravar informação");
+        System.out.println("7. Carregar informação");
+        System.out.println("8. Sair");
 
-        // resultado final, o joao ficou com 20 de receitas e o toze com -2 de guito no banco
-        System.out.println(cafeDoJoao.toString(""));
-        System.out.println(contaDoToze.getSaldo());
-        System.out.println(Cliente.listarClientes(cafeDoJoao.getClientesList(), ""));
-//
-//        toze.registarCliente();
-//
-//
-//        Cliente jajao = Cliente.registarCliente();
+        return Leitor.lerInteiro(1, 8);
+    }
+
+    public static Estabelecimento testValues() {
+        Estabelecimento e = new Estabelecimento("Cafe do Joao", 0);
+        Cliente clienteJoao = new Cliente("Joao Miguel", 1094010395);
+        Cliente clienteSantiago = new Cliente("Santiago Santos", 1005839065, 50);
+        Cliente clienteJoana = new Cliente("Joana Mira", 1027747976, 100);
+        Cliente clienteMatilde = new Cliente("Matilde Agostinho", 1094088183, -3);
+
+        e.addCliente(clienteJoao);
+        e.addCliente(clienteSantiago);
+        e.addCliente(clienteJoana);
+        e.addCliente(clienteMatilde);
+        e.addCliente(clienteJoao);
+
+        return e;
     }
 }

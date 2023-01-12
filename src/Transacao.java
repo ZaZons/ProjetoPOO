@@ -50,7 +50,7 @@ public class Transacao {
 
     public static String listarTransacoes(LinkedList<Transacao> transacoesList, String nivel) {
         if (transacoesList.isEmpty()) {
-            return "Sem transacoes";
+            return "[\n\t" + nivel + "<Sem transacoes>\n" + nivel + "]";
         }
 
         StringBuilder res = new StringBuilder();
@@ -103,7 +103,7 @@ public class Transacao {
         LinkedList<MetodoPagamento> metodosCliente = clienteTransacao.getConta().getMetodosPagamentoList();
 
         do {
-            System.out.println("\n" + clienteTransacao.getConta().listarMetodosPagamento(metodosCliente, ""));
+            System.out.println("\n" + ContaBancaria.listarMetodosPagamento(metodosCliente, ""));
             System.out.println("\nSelecione um dos metodos de pagamento apresentados: ");
 
             long idSelecionado = scanner.nextLong();

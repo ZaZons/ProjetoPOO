@@ -1,14 +1,19 @@
 import java.util.LinkedList;
 
 public class ContaBancaria {
-    private Cliente cliente;
+    private final Cliente cliente;
     private double saldo;
-    private LinkedList<Transacao> transacoesList;
-    private LinkedList<MetodoPagamento> metodosPagamentoList;
+    private final LinkedList<Transacao> transacoesList;
+    private final LinkedList<MetodoPagamento> metodosPagamentoList;
 
     public ContaBancaria(Cliente cliente, double saldo) {
         this.cliente = cliente;
-        this.saldo = saldo;
+
+        if (saldo < 0) {
+            saldo = 0;
+        }
+
+        this.saldo = Math.abs(saldo);
         this.transacoesList = new LinkedList<>();
         this.metodosPagamentoList = new LinkedList<>();
         cliente.setConta(this);
@@ -32,33 +37,33 @@ public class ContaBancaria {
 
     public String toString(String nivel) {
         return "Conta Bancaria {" + "\n\t" + nivel +
-                "Cliente = '" + cliente.getNome() + "',\n\t" + nivel +
+                "Cliente = '" + cliente.getNome() + "' (" + cliente.getNif() + "),\n\t" + nivel +
                 "Saldo = " + saldo + ",\n\t" + nivel +
                 "Transacoes " + Transacao.listarTransacoes(transacoesList, nivel + "\t") + ",\n\t" + nivel +
-                listarMetodosPagamento(metodosPagamentoList, nivel + "\t") + "\t" + nivel + "]\n" + nivel +
+                "Metodos de pagamento " + listarMetodosPagamento(metodosPagamentoList, nivel + "\t") + "\n" + nivel +
                 "}";
     }
 
     public static String listarMetodosPagamento(LinkedList<MetodoPagamento> metodosPagamentoList, String nivel) {
-        StringBuilder metodosPagamentoStr = new StringBuilder();
-
         if (metodosPagamentoList.isEmpty()) {
-            metodosPagamentoStr.append("Nao existem metodos de pagamento associados a esta conta");
-        } else {
-            metodosPagamentoStr.append("Metodos de pagamento [");
-            for (MetodoPagamento metodo : metodosPagamentoList) {
-                if (metodo instanceof CartaoDebito) {
-                    metodosPagamentoStr.append("\n\t");
-                    metodosPagamentoStr.append(nivel);
-                    metodosPagamentoStr.append(((CartaoDebito) metodo).toString(nivel + "\t"));
-                }
-
-                if (!metodosPagamentoList.getLast().equals(metodo)) {
-                    metodosPagamentoStr.append(",");
-                }
-            }
-            metodosPagamentoStr.append("\n");
+            return "[\n\t" + nivel + "<Sem metodos de pagamento>\n" + nivel + "]";
         }
+
+        StringBuilder metodosPagamentoStr = new StringBuilder();
+        metodosPagamentoStr.append("Metodos de pagamento [");
+        for (MetodoPagamento metodo : metodosPagamentoList) {
+            if (metodo instanceof CartaoDebito) {
+                metodosPagamentoStr.append("\n\t");
+                metodosPagamentoStr.append(nivel);
+                metodosPagamentoStr.append(((CartaoDebito) metodo).toString(nivel + "\t"));
+            }
+
+            if (!metodosPagamentoList.getLast().equals(metodo)) {
+                metodosPagamentoStr.append(",");
+            }
+        }
+        metodosPagamentoStr.append("\n");
+
 
         return metodosPagamentoStr.toString();
     }

@@ -10,6 +10,13 @@ public class Cliente extends Identificador {
     public Cliente(String nome, long nif) {
         super(nome);
         this.nif = nif;
+        this.conta = new ContaBancaria(this, 0);
+    }
+
+    public Cliente(String nome, long nif, double saldoInicial) {
+        super(nome);
+        this.nif = nif;
+        this.conta = new ContaBancaria(this, saldoInicial);
     }
 
     public long getNif() {
@@ -31,24 +38,36 @@ public class Cliente extends Identificador {
 
     public static String listarClientes(LinkedList<Cliente> clientesList, String nivel) {
         if (clientesList.isEmpty()) {
-            return "Sem clientes";
+            return "[\n\t" + nivel + "<Sem clientes>\n" + nivel + "]";
         }
 
         System.out.println("Clientes [");
         StringBuilder res = new StringBuilder();
         for (Cliente c : clientesList) {
-            res.append(c.toString(nivel));
-
-            res.append(",\n\t");
+            res.append("\t");
             res.append(nivel);
-            res.append(c.getConta().toString(nivel + "\t"));
+            res.append("Cliente ");
+            res.append(clientesList.indexOf(c) + 1);
+            res.append(" {");
+
+            res.append("\n");
+            res.append(nivel);
+            res.append(c.toString(nivel + "\t"));
+
+            res.append(",\n\t\t");
+            res.append(nivel);
+            res.append(c.getConta().toString(nivel + "\t\t"));
+
+            res.append("\n\t");
+            res.append(nivel);
+            res.append("}");
 
             if (!clientesList.getLast().equals(c)) {
-                res.append(',');
+                res.append(",");
             }
+            res.append('\n');
         }
 
-        res.append("\n");
         res.append(nivel);
         res.append("]");
 
