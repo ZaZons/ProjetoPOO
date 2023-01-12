@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Transacao {
     private final Data data;
@@ -71,4 +72,25 @@ public class Transacao {
 
         return res.toString();
     }
+    public static Transacao registarTransacao(LinkedList<Cliente> clientesList) {
+        System.out.println("Clientes [");
+        for (Cliente c : clientesList) {
+            System.out.println("\t" + c.getNome());
+            System.out.println("\t" + ContaBancaria.listarMetodosPagamento(c.getConta().getMetodosPagamentoList(), "\t"));
+        }
+        System.out.println("]");
+        // Pedir o nome do cliente
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nValor da transação: ");
+        double Valor = scanner.nextDouble();
+        scanner.nextLine();
+        System.out.println("\nCLiente a registar na transacao: ");
+        Cliente cliente =; //TODO
+        Data()
+        Transacao novaTransacao = new Transacao();
+
+        System.out.println();
+    }
+
 }
