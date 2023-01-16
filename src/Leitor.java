@@ -37,11 +37,33 @@ public abstract class Leitor {
         return input;
     }
 
-    public static String lerString(long min, long max) {
+    public static long lerNif() {
+        return lerStuff(9);
+    }
+
+    public static int lerPin() {
+        return (int) lerStuff(4);
+    }
+
+    private static long lerStuff(long length) {
+        long stuff = 0;
+
+        do {
+            try {
+                stuff = Long.parseLong(lerString(length));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } while (stuff == 0);
+
+        return stuff;
+    }
+
+    public static String lerString(long tamanho) { // TODO: verificar se deixar min max ou só "min"
         Scanner scanner = new Scanner(System.in);
 
-        // todo exception valores decimais
         String input = "";
+        boolean verificado = true;
         do {
             try {
                 if (scanner.hasNextLine()) {
@@ -50,15 +72,18 @@ public abstract class Leitor {
                     throw new InputMismatchException("Valor invalido, introduza um valor inteiro: ");
                 }
 
-                if (input.length() < min || input.length() > max) {
-                    throw new InputMismatchException("Valor invalido, introduza um valor entre " + min + " e " + max + ": ");
+                if (tamanho != -1) {
+                    if (input.length() != tamanho) {
+                        verificado = false;
+                        throw new InputMismatchException("Valor invalido, introduza um valor com " + tamanho + " digitos: ");
+                    }
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
 
             scanner.nextLine();
-        } while (input.length() < min || input.length() > max || input == "");
+        } while (!verificado);
 
         return input;
     }

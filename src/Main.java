@@ -15,7 +15,7 @@ public class Main {
                     System.out.println(Cliente.listarClientes(cafeDoJoao.getClientesList(), ""));
                     break;
                 case 3:
-                    Cliente.registarCliente();
+                    Cliente cliente = Cliente.registarCliente(); //feito pleo stor, adicionado var por nao estar a receber valor returned todo
                     break;
                 case 4:
                     cafeDoJoao.registarTransacao();
