@@ -3,10 +3,16 @@ import java.util.Scanner;
 
 public abstract class Leitor {
     public static int lerInteiro(int min, int max) {
-        return (int) lerLong(min, max);
+        // todo numberformatexception
+        return (int) lerDouble(min, max);
     }
 
     public static long lerLong(long min, long max) {
+        // todo numberformatexception
+        return (long) lerDouble(min, max);
+    }
+
+    public static double lerDouble(double min, double max) {
         Scanner scanner = new Scanner(System.in);
 
         long input = -1;
