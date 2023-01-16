@@ -30,4 +30,30 @@ public abstract class Leitor {
 
         return input;
     }
+
+    public static String lerString(long min, long max) {
+        Scanner scanner = new Scanner(System.in);
+
+        // todo exception valores decimais
+        String input = "";
+        do {
+            try {
+                if (scanner.hasNextLine()) {
+                    input = scanner.nextLine();
+                } else {
+                    throw new InputMismatchException("Valor invalido, introduza um valor inteiro: ");
+                }
+
+                if (input.length() < min || input.length() > max) {
+                    throw new InputMismatchException("Valor invalido, introduza um valor entre " + min + " e " + max + ": ");
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            scanner.nextLine();
+        } while (input.length() < min || input.length() > max || input == "");
+
+        return input;
+    }
 }
