@@ -17,6 +17,12 @@ public class Main {
                 case 3:
                     Cliente.registarCliente();
                     break;
+                case 4:
+                    cafeDoJoao.registarTransacao();
+                    break;
+                case 5:
+                    cafeDoJoao.showEstatisticas();
+                    break;
             }
             System.out.print("\n");
         } while (opcao != 0);
