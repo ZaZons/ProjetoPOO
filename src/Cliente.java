@@ -81,47 +81,38 @@ public class Cliente extends Identificador {
         String nome = scanner.nextLine();
         scanner.nextLine();
         System.out.println("\nInsira o NIF: ");
-        long nif = scanner.nextLong();
+        long nif = Leitor.lerNif(); //todo
         scanner.nextLine();
-
-        Cliente novoCliente = new Cliente(nome, nif);
 
         System.out.println("\nSaldo inicial da conta: ");
-        long saldo = scanner.nextLong();
-        scanner.nextLine();
-        ContaBancaria novaConta = new ContaBancaria(novoCliente, saldo);
+        long saldo = Leitor.lerLong(0, 9999999);
+
+
+        Cliente novoCliente = new Cliente(nome, nif, saldo);
+
+        ContaBancaria novaConta = novoCliente.getConta();
 
         System.out.println("\nDeseja adicionar métodos de Pagamento? (S/N)");
-        String opcao = scanner.nextLine();
-        scanner.nextLine();
+        String opcao = Leitor.lerString(1);
         String opcaoRepeticao = "";
-        int validacaoPin;
         do {
             if (opcao.equals("S")) {
                 System.out.println("\nMétodo pretendido:\n\t1. Debito\n\t2. Crédito\n\t3. MbWay");
-                int opcaoMetodo = scanner.nextInt();
-                scanner.nextLine();
+                int opcaoMetodo = Leitor.lerInteiro(1,3);
 
                 long id = novaConta.getMetodosPagamentoList().size() + 1;
                 LocalDateTime dataDeHoje = LocalDateTime.now();
                 Data dataDeValidade = new Data(dataDeHoje.getDayOfMonth(), dataDeHoje.getMonthValue(), dataDeHoje.getYear() + 4);
-                int pin;
-                do {
-                    System.out.println("\nInsira um Pin para este método: ");
-                    pin = scanner.nextInt();
-                    scanner.nextLine();
-                    validacaoPin = String.valueOf(pin).length();
-                    if (validacaoPin != 4) {
-                        System.out.println("\nTamanho de pin inválido! 4444 -My audience awaits-"); // TODO
-                    }
-                } while (validacaoPin != 4);
+
+                System.out.println("\nInsira um Pin para este método: ");
+                int pin = Integer.parseInt(Leitor.lerString(4));
 
                 if (opcaoMetodo == 1) {
                     novaConta.addMetodoPagamento(new CartaoDebito(id, novaConta, dataDeValidade, pin));
                 } else {
                     System.out.println("\nInsira o valor extra limite da conta: ");
 
-                    long limite = scanner.nextLong();
+                    long limite = Leitor.lerLong(0, 9999);
                     scanner.nextLine();
                     if (opcaoMetodo == 2) {
                         novaConta.addMetodoPagamento(new CartaoCredito(id, novaConta, dataDeValidade, pin, limite));
@@ -130,8 +121,7 @@ public class Cliente extends Identificador {
                     }
                 }
                 System.out.println("\nDeseja adicinar mais métoodos de pagamentos? (S/N)");
-                opcaoRepeticao = scanner.nextLine();
-                scanner.nextLine();
+                opcaoRepeticao = Leitor.lerString(1);
             }
 
         }while (opcaoRepeticao.equals("S"));
