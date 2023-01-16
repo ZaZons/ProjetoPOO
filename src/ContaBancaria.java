@@ -40,11 +40,11 @@ public class ContaBancaria {
                 "Cliente = '" + cliente.getNome() + "' (" + cliente.getNif() + "),\n\t" + nivel +
                 "Saldo = " + saldo + ",\n\t" + nivel +
                 "Transacoes " + Transacao.listarTransacoes(transacoesList, nivel + "\t") + ",\n\t" + nivel +
-                "Metodos de pagamento " + listarMetodosPagamento(metodosPagamentoList, nivel + "\t") + "\n" + nivel +
+                "Metodos de pagamento " + listarMetodosPagamento(nivel + "\t") + "\n" + nivel +
                 "}";
     }
 
-    public static String listarMetodosPagamento(LinkedList<MetodoPagamento> metodosPagamentoList, String nivel) {
+    public String listarMetodosPagamento(String nivel) {
         if (metodosPagamentoList.isEmpty()) {
             return "[\n\t" + nivel + "<Sem metodos de pagamento>\n" + nivel + "]";
         }
@@ -75,9 +75,7 @@ public class ContaBancaria {
 
         addMetodoPagamento(transacao.getMetodoPagamento());
 
-        transacao.getEstabelecimento().addCliente(cliente);
         transacao.getEstabelecimento().addTransacao(transacao);
-
         transacoesList.add(transacao);
         saldo -= transacao.getValor();
     }

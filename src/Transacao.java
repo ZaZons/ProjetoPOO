@@ -72,44 +72,39 @@ public class Transacao {
 
         return res.toString();
     }
-    public static Transacao registarTransacao(LinkedList<Cliente> clientesList, Estabelecimento estabelecimento) {
+    public static void registarTransacao(Estabelecimento estabelecimento) {
         System.out.println("Clientes [");
-        for (Cliente c : clientesList) {
+        for (Cliente c : estabelecimento.getClientesList()) {
             System.out.println("\t" + c.getNome());
         }
         System.out.println("]");
-        Scanner scanner = new Scanner(System.in);
 
-        boolean validacaoCliente = false;
+//        boolean validacaoCliente = false;
         Cliente clienteTransacao = null;
         do {
             System.out.println("\nInsira o NIF de um cliente da lista apresentada: ");
-            long nifCliente = scanner.nextLong();
-            scanner.nextLine();
+            long nifCliente = Leitor.lerNif();
 
-            for (Cliente cliente1 : clientesList) {
-
+            for (Cliente cliente1 : estabelecimento.getClientesList()) {
                 if (cliente1.getNif() == nifCliente) {
                     clienteTransacao = cliente1;
-                    validacaoCliente = true;
+//                    validacaoCliente = true;
                 }
             }
-                if (clienteTransacao == null) {
-                    System.out.println("\nCliente inválido!");
-                }
-        }while(!validacaoCliente);
+
+            if (clienteTransacao == null) {
+                System.out.println("\nCliente inválido!");
+            }
+//        }while(!validacaoCliente);
+        } while (clienteTransacao == null);
 
         MetodoPagamento metodoSelecionado = null;
         LinkedList<MetodoPagamento> metodosCliente = clienteTransacao.getConta().getMetodosPagamentoList();
-
         do {
-            System.out.println("\n" + ContaBancaria.listarMetodosPagamento(metodosCliente, ""));
+            System.out.println("\n" + clienteTransacao.getConta().listarMetodosPagamento(""));
             System.out.println("\nSelecione um dos metodos de pagamento apresentados: ");
 
-            long idSelecionado = scanner.nextLong();
-            scanner.nextLine();
-
-
+            long idSelecionado = Long.parseLong(Leitor.lerString(1));
             for (MetodoPagamento m : metodosCliente) {
                 if (m instanceof CartaoDebito) {
                     if (((CartaoDebito) m).getId() == idSelecionado) {
@@ -117,28 +112,23 @@ public class Transacao {
                     }
                 }
             }
+
             if (metodoSelecionado == null) {
                 System.out.println("\nMétodo inválido!");
             }
-        }while(metodoSelecionado == null);
+        } while (metodoSelecionado == null);
 
         double valorTransacao;
-
         do {
             System.out.println("\nValor da transação: ");
-            valorTransacao = scanner.nextDouble();
-            scanner.nextLine();
+            valorTransacao = Leitor.lerDouble(0.01, 9999);
 
             if(valorTransacao <= 0) {
                 System.out.println("Valor inválido [Inferior ou igual a 0]");
             }
-        }while(valorTransacao <= 0);
+        } while (valorTransacao <= 0);
 
-        Transacao novaTransacao = new Transacao(new Data(), valorTransacao, metodoSelecionado, clienteTransacao, estabelecimento);
-
-        System.out.println("\n\n\t\tTransação efetuada!");
-
-        return novaTransacao;
+        metodoSelecionado.efetuarPagamento(valorTransacao, estabelecimento);
     }
 
 }

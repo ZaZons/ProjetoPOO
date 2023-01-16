@@ -67,7 +67,7 @@ public class Estabelecimento extends Identificador{
                 "}";
     }
 
-    public void estatisticas() {
+    public void showEstatisticas() {
         System.out.println("Numero de clientes registados: " + clientesList.size());
         System.out.println("Numero de transacoes registadas: " + transacoesList.size());
         System.out.println("\n");
@@ -186,5 +186,9 @@ public class Estabelecimento extends Identificador{
         }
 
         return metodos;
+    }
+
+    public void registarTransacao() {
+        Transacao.registarTransacao(this);
     }
 }

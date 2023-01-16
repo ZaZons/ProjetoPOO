@@ -1,12 +1,13 @@
 public class MetodoPagamento {
-    public void efetuarPagamento(double valor, int pin, Estabelecimento estabelecimento) {
-        if (valor <= 0) {
-            System.out.println("Transacao rejeitada, o valor deve ser positivo.");
-            return;
-        }
-
+    public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
+//        if (valor <= 0) {
+//            System.out.println("Transacao rejeitada, o valor deve ser positivo.");
+//            return;
+//        }
+        //todo interface
         if (this instanceof CartaoDebito) {
-            //todo apenas receber pin se for cartao
+            System.out.println("Introduza o pin: ");
+            int pin = Leitor.lerPin();
             if (!((CartaoDebito) this).verificarCodigo(pin)) {
                 System.out.println("Transacao rejeitada, o pin introduzido esta errado");
                 return;
