@@ -4,6 +4,7 @@ public class Main {
         Estabelecimento cafeDoJoao = new Estabelecimento("Cafe do Jonas", 0);
         int opcao;
 
+        // TODO: 17/01/2023 grafico no lucidchart
         //todo comentar funcoes
         do {
             System.out.println(cafeDoJoao.getNome());
@@ -40,6 +41,10 @@ public class Main {
         } while (opcao != 0);
     }
 
+    /**
+     * Cria o menu.
+     * Recebe e devolve a opção escolhida
+     */
     public static int menu() {
         System.out.println("1. Listar transacoes");
         System.out.println("2. Listar clientes");
@@ -53,8 +58,12 @@ public class Main {
         return Leitor.lerInteiro(0, 7);
     }
 
+    /**
+     * Valores de teste para a aplicação.
+     * Devolve o estabelecimento atualizado.
+     */
     public static Estabelecimento testValues() {
-        // Estabelecimento e clientes
+        // Estabelecimento e valores
         Estabelecimento e = new Estabelecimento("Cafe do Joao", 0);
         Cliente clienteJoao = new Cliente("Joao Miguel", 423567543);
         Cliente clienteSantiago = new Cliente("Santiago Santos", 100583906, 50);
@@ -67,6 +76,7 @@ public class Main {
         e.addCliente(clienteMatilde);
         e.addCliente(clienteJoao);
 
+        // Metodos e transações
         CartaoDebito cdJoao = new CartaoDebito(1, clienteJoao.getConta(), 1234);
         CartaoCredito ccJoao = new CartaoCredito(2, clienteJoao.getConta(), 1234, 15);
         MBWay mbJoana = new MBWay(1, clienteJoana.getConta(), 1234, 70);
@@ -75,6 +85,7 @@ public class Main {
         Transacao t1 = new Transacao(15.5, cdJoao, clienteJoao, e);
         Transacao t2 = new Transacao(20, ccJoao, clienteJoao, e);
         Transacao t3 = new Transacao(3, mbJoana, clienteJoana, e);
+
         return e;
     }
 }
