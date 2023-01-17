@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -70,18 +71,24 @@ public class Estabelecimento extends Identificador {
     public void showEstatisticas() {
         System.out.println("Numero de clientes registados: " + clientesList.size());
         System.out.println("Numero de transacoes registadas: " + transacoesList.size());
-        System.out.println("\nCliente com mais transacoes registadas: " + clienteComMaisTransacoes());
-        System.out.println("Cliente que despendeu maior valor: " + clienteQueMaisGastou());
-        System.out.println("\nTransacao de maior valor: " + transacaoDeMaiorValor().toString(""));
-        System.out.println("Transacao de menor valor: " + transacaoDeMenorValor().toString(""));
-        System.out.println("Valor medio das transacoes: " + valorMedioDasTransacoes());
-        System.out.println("\nTotal de receitas do estabelecimento: " + getReceitas());
-        System.out.println("\nPercentagem de transacoes por metodo de pagamento {");
-        System.out.println("\tCartao de Debito: " + percentagemMetodos()[0][1] + "% (" + percentagemMetodos()[0][0] + ")");
-        System.out.println("\tCartao de Credito: " + percentagemMetodos()[1][1] + "% (" + percentagemMetodos()[1][0] + ")");
-        System.out.println("\tMBWay: " + percentagemMetodos()[2][1] + "% (" + percentagemMetodos()[2][0] + ")");
-        System.out.println("\tNumerario: " + percentagemMetodos()[3][1] + "% (" + percentagemMetodos()[3][0] + ")");
-        System.out.println("}");
+        System.out.println("Total de receitas do estabelecimento: " + getReceitas());
+
+        if (!clientesList.isEmpty()) {
+            System.out.println("\nCliente com mais transacoes registadas {\n" + clienteComMaisTransacoes().toString(""));
+            System.out.println("}\nCliente que despendeu maior valor {\n" + clienteQueMaisGastou().toString(""));
+        }
+
+        if (!transacoesList.isEmpty()) {
+            System.out.println("}\nTransacao de maior valor {\n\t" + transacaoDeMaiorValor().toString("\t"));
+            System.out.println("}\nTransacao de menor valor {\n\t" + transacaoDeMenorValor().toString("\t"));
+            System.out.println("}\nValor medio das transacoes: " + valorMedioDasTransacoes());
+            System.out.println("\nPercentagem de transacoes por metodo de pagamento {");
+            System.out.println("\tCartao de Debito: " + percentagemMetodos()[0][1] + "% (" + percentagemMetodos()[0][0] + ")");
+            System.out.println("\tCartao de Credito: " + percentagemMetodos()[1][1] + "% (" + percentagemMetodos()[1][0] + ")");
+            System.out.println("\tMBWay: " + percentagemMetodos()[2][1] + "% (" + percentagemMetodos()[2][0] + ")");
+            System.out.println("\tNumerario: " + percentagemMetodos()[3][1] + "% (" + percentagemMetodos()[3][0] + ")");
+            System.out.println("}");
+        }
     }
 
     private Cliente clienteComMaisTransacoes() {
@@ -100,9 +107,9 @@ public class Estabelecimento extends Identificador {
 
         if (!clientesETransacoes.isEmpty()) {
             int maxTransacoes = 0;
-            for (Cliente c : clientesList) {
-                if (clientesETransacoes.get(c) > maxTransacoes) {
-                    clienteComMaisTransacoes = c;
+            for (HashMap.Entry<Cliente, Integer> entry : clientesETransacoes.entrySet()) {
+                if (entry.getValue() > maxTransacoes) {
+                    clienteComMaisTransacoes = entry.getKey();
                 }
             }
         }
@@ -124,9 +131,9 @@ public class Estabelecimento extends Identificador {
 
         if (!clientesEGastos.isEmpty()) {
             int maxGastos = 0;
-            for (Cliente c : clientesList) {
-                if (clientesEGastos.get(c) > maxGastos) {
-                    clienteComMaisGastos = c;
+            for (HashMap.Entry<Cliente, Double> entry : clientesEGastos.entrySet()) {
+                if (entry.getValue() > maxGastos) {
+                    clienteComMaisGastos = entry.getKey();
                 }
             }
         }
@@ -135,7 +142,7 @@ public class Estabelecimento extends Identificador {
     }
 
     private Transacao transacaoDeMaiorValor() {
-        Transacao transacaoMaisCara = new Transacao(null, 0, null, null, null);
+        Transacao transacaoMaisCara = new Transacao(0, null, null, null);
         for (Transacao t : transacoesList) {
             if (t.getValor() > transacaoMaisCara.getValor()) {
                 transacaoMaisCara = t;
@@ -146,7 +153,7 @@ public class Estabelecimento extends Identificador {
     }
 
     private Transacao transacaoDeMenorValor() {
-        Transacao transacaoMaisBarata = new Transacao(null, Double.MAX_VALUE, null, null, null);
+        Transacao transacaoMaisBarata = new Transacao(Double.MAX_VALUE, null, null, null);
         for (Transacao t : transacoesList) {
             if (t.getValor() < transacaoMaisBarata.getValor()) {
                 transacaoMaisBarata = t;
@@ -170,8 +177,8 @@ public class Estabelecimento extends Identificador {
         return valorTotal / transacoesList.size();
     }
 
-    private int[][] percentagemMetodos() {
-        int[][] metodos = new int[4][2];
+    private double[][] percentagemMetodos() {
+        double[][] metodos = new double[4][2];
 
         for (Transacao t : transacoesList) {
             if (t.getMetodoPagamento() instanceof Numerario) {
@@ -186,6 +193,14 @@ public class Estabelecimento extends Identificador {
             } else if (t.getMetodoPagamento() instanceof CartaoDebito) {
                 metodos[0][0]++;
                 metodos[0][1] = metodos[0][0] / transacoesList.size() * 100;
+            }
+        }
+
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        for (int i = 0; i < metodos.length; i++) {
+            for (int j = 0; j < metodos[i].length; j++) {
+                metodos[i][j] = Double.parseDouble(df.format(metodos[i][j]).replace(',', '.'));
             }
         }
 

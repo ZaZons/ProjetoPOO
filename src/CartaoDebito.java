@@ -4,11 +4,12 @@ public class CartaoDebito implements MetodoPagamento {
     protected Data dataValidade;
     protected int pin;
 
-    public CartaoDebito(long id, ContaBancaria conta, Data dataValidade, int pin) {
+    public CartaoDebito(long id, ContaBancaria conta, int pin) {
         this.id = id;
         this.conta = conta;
-        this.dataValidade = dataValidade;
+        this.dataValidade = new Data();
         this.pin = pin;
+        conta.addMetodoPagamento(this);
     }
 
     public long getId() {
@@ -22,15 +23,40 @@ public class CartaoDebito implements MetodoPagamento {
             return;
         }
 
-        if (!verificarCodigo()) {
+        if (!validacoesComuns()) {
             return;
         }
 
         continuarPagamento(valor, estabelecimento);
     }
 
+    protected boolean validacoesComuns() {
+        if (!verificarCodigo()) {
+            System.out.println("Codigo incorreto!");
+            return false;
+        }
+
+        String metodoExpirado = "Metodo de pagamento expirado!";
+        if (this.dataValidade.getAno() > new Data().getAno()) {
+            System.out.println(metodoExpirado);
+            return false;
+        } else if (this.dataValidade.getAno() == new Data().getAno()) {
+            if (this.dataValidade.getMes() > new Data().getMes()) {
+                System.out.println(metodoExpirado);
+                return false;
+            } else if (this.dataValidade.getMes() == new Data().getMes()) {
+                if (this.dataValidade.getDia() > new Data().getDia()) {
+                    System.out.println(metodoExpirado);
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     protected void continuarPagamento(double valor, Estabelecimento estabelecimento) {
-        Transacao transacao = new Transacao(new Data(), valor, this, conta.getCliente(), estabelecimento);
+        Transacao transacao = new Transacao(valor, this, conta.getCliente(), estabelecimento);
         conta.addTransacao(transacao);
     }
 

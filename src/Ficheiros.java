@@ -29,7 +29,7 @@ public abstract class Ficheiros {
             estabelecimento = (Estabelecimento) objectOutputStream.readObject();
             objectOutputStream.close();
 
-            System.out.println("Dados gravados");
+            System.out.println("Dados carregados");
         } catch (Exception e) {
             System.out.println("Erro no ficheiro: " + e);
         }

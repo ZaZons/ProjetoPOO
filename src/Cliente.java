@@ -1,5 +1,3 @@
-import java.time.LocalDateTime;
-
 import java.util.LinkedList;
 
 public class Cliente extends Identificador {
@@ -102,22 +100,20 @@ public class Cliente extends Identificador {
                 int opcaoMetodo = Leitor.lerInteiro(1,3);
 
                 long id = novaConta.getMetodosPagamentoList().size() + 1;
-                LocalDateTime dataDeHoje = LocalDateTime.now();
-                Data dataDeValidade = new Data(dataDeHoje.getDayOfMonth(), dataDeHoje.getMonthValue(), dataDeHoje.getYear() + 4);
 
                 System.out.println("\nInsira um Pin para este método: ");
                 int pin = Leitor.lerPin();
 
                 if (opcaoMetodo == 1) {
-                    novaConta.addMetodoPagamento(new CartaoDebito(id, novaConta, dataDeValidade, pin));
+                    novaConta.addMetodoPagamento(new CartaoDebito(id, novaConta, pin));
                 } else {
                     System.out.println("\nInsira o valor extra limite da conta: ");
 
                     long limite = Leitor.lerLong(0, 9999);
                     if (opcaoMetodo == 2) {
-                        novaConta.addMetodoPagamento(new CartaoCredito(id, novaConta, dataDeValidade, pin, limite));
+                        novaConta.addMetodoPagamento(new CartaoCredito(id, novaConta, pin, limite));
                     } else {
-                        novaConta.addMetodoPagamento(new MBWay(id, novaConta, dataDeValidade, pin, limite));
+                        novaConta.addMetodoPagamento(new MBWay(id, novaConta, pin, limite));
                     }
                 }
                 System.out.println("\nDeseja adicinar mais métodos de pagamentos? (S/N)");

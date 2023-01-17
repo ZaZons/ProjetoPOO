@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        Estabelecimento cafeDoJoao = testValues();
-//        Estabelecimento cafeDoJoao = new Estabelecimento("Cafe do Jonas", 0);
+//        Estabelecimento cafeDoJoao = testValues();
+        Estabelecimento cafeDoJoao = new Estabelecimento("Cafe do Jonas", 0);
         int opcao;
 
         //todo comentar funcoes
@@ -54,6 +54,7 @@ public class Main {
     }
 
     public static Estabelecimento testValues() {
+        // Estabelecimento e clientes
         Estabelecimento e = new Estabelecimento("Cafe do Joao", 0);
         Cliente clienteJoao = new Cliente("Joao Miguel", 423567543);
         Cliente clienteSantiago = new Cliente("Santiago Santos", 100583906, 50);
@@ -66,6 +67,14 @@ public class Main {
         e.addCliente(clienteMatilde);
         e.addCliente(clienteJoao);
 
+        CartaoDebito cdJoao = new CartaoDebito(1, clienteJoao.getConta(), 1234);
+        CartaoCredito ccJoao = new CartaoCredito(2, clienteJoao.getConta(), 1234, 15);
+        MBWay mbJoana = new MBWay(1, clienteJoana.getConta(), 1234, 70);
+        CartaoCredito ccSantiago = new CartaoCredito(1, clienteSantiago.getConta(), 1234, 7);
+
+        Transacao t1 = new Transacao(15.5, cdJoao, clienteJoao, e);
+        Transacao t2 = new Transacao(20, ccJoao, clienteJoao, e);
+        Transacao t3 = new Transacao(3, mbJoana, clienteJoana, e);
         return e;
     }
 }

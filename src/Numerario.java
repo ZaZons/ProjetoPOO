@@ -22,7 +22,7 @@ public class Numerario implements MetodoPagamento {
 
         valorEntregue -= valor;
         Cliente clienteAnonimo = new Cliente();
-        Transacao transacao = new Transacao(new Data(), valor, this, clienteAnonimo, estabelecimento);
+        Transacao transacao = new Transacao(valor, this, clienteAnonimo, estabelecimento);
         estabelecimento.addTransacao(transacao);
     }
 }

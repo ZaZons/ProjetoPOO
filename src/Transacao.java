@@ -1,18 +1,22 @@
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Transacao {
+public class Transacao implements Serializable {
     private final Data data;
     private final double valor;
     private final MetodoPagamento metodoPagamento;
     private final Cliente cliente;
     private final Estabelecimento estabelecimento;
 
-    public Transacao(Data data, double valor, MetodoPagamento metodoPagamento, Cliente cliente, Estabelecimento estabelecimento) {
-        this.data = data;
+    public Transacao(double valor, MetodoPagamento metodoPagamento, Cliente cliente, Estabelecimento estabelecimento) {
+        this.data = new Data();
         this.valor = valor;
         this.metodoPagamento = metodoPagamento;
         this.cliente = cliente;
         this.estabelecimento = estabelecimento;
+        if (estabelecimento != null) {
+            estabelecimento.addTransacao(this);
+        }
     }
 
     public double getValor() {

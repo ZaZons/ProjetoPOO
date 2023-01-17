@@ -1,19 +1,13 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Data {
+public class Data implements Serializable {
     private final int dia;
     private final int mes;
     private final int ano;
     private final int hora;
     private final int minutos;
 
-    public Data(int dia, int mes, int ano) {
-        this.dia = dia;
-        this.mes = mes;
-        this.ano = ano;
-        this.hora = 0;
-        this.minutos = 0;
-    }
     public Data() {
         LocalDateTime currentTime = LocalDateTime.now();
         this.dia = currentTime.getDayOfMonth();

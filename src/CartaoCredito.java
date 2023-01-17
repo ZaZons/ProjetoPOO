@@ -6,22 +6,23 @@ public class CartaoCredito extends CartaoDebito{
         return limite;
     }
 
-    public CartaoCredito(long id, ContaBancaria conta, Data dataValidade, int pin, double limite) {
-        super(id, conta, dataValidade, pin);
+    public CartaoCredito(long id, ContaBancaria conta, int pin, double limite) {
+        super(id, conta, pin);
         this.limite = limite;
     }
 
     @Override
     public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
-        if (!verificarLimite(valor)) {
+        if (!this.verificarLimite(valor)) {
             System.out.println("Transacao rejeitada, limite ultrapassado");
             return;
         }
 
-        if (!this.verificarCodigo()) {
+        if (!validacoesComuns()) {
             return;
         }
 
+        this.addGastos(valor);
         continuarPagamento(valor, estabelecimento);
     }
 
@@ -30,7 +31,7 @@ public class CartaoCredito extends CartaoDebito{
         return "CartaoCredito {" + "\n\t" + nivel +
                 "Id = " + id + "\n\t" + nivel +
                 "Data de validade = " + dataValidade + "\n\t" + nivel +
-                "Limite = " + limite + "\n" + nivel +
+                "Limite = " + getLimite() + "\n" + nivel +
                 '}';
     }
 

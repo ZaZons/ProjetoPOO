@@ -1,4 +1,6 @@
-public interface MetodoPagamento {
+import java.io.Serializable;
+
+public interface MetodoPagamento extends Serializable {
     void efetuarPagamento(double valor, Estabelecimento estabelecimento);
 //    public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
 ////        if (valor <= 0) {
