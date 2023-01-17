@@ -105,7 +105,7 @@ public class Cliente extends Identificador {
                 Data dataDeValidade = new Data(dataDeHoje.getDayOfMonth(), dataDeHoje.getMonthValue(), dataDeHoje.getYear() + 4);
 
                 System.out.println("\nInsira um Pin para este método: ");
-                int pin = Integer.parseInt(Leitor.lerString(4));
+                int pin = Leitor.lerPin();
 
                 if (opcaoMetodo == 1) {
                     novaConta.addMetodoPagamento(new CartaoDebito(id, novaConta, dataDeValidade, pin));
