@@ -1,17 +1,20 @@
-public class Numerario extends MetodoPagamento {
-    private final double valorEntregue;
+public class Numerario implements MetodoPagamento {
+    private double valorEntregue;
 
     public Numerario(double valorEntregue) {
         this.valorEntregue = valorEntregue;
     }
 
-    public double getValorEntregue() {
-        return valorEntregue;
-    }
+    @Override
+    public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
+        if (valorEntregue < valor) {
+            System.out.println("Transacao rejeitada, valor entregue insuficiente");
+            return;
+        }
 
-    protected void continuarPagamento(double valor, Data data, Estabelecimento estabelecimento) {
+        valorEntregue -= valor;
         Cliente clienteAnonimo = new Cliente("Consumidor final", 999999990);
-        Transacao transacao = new Transacao(data, valor, this, clienteAnonimo, estabelecimento);
+        Transacao transacao = new Transacao(new Data(), valor, this, clienteAnonimo, estabelecimento);
         estabelecimento.addTransacao(transacao);
     }
 }
