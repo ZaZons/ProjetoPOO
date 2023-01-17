@@ -78,8 +78,7 @@ public class Cliente extends Identificador {
     public static Cliente registarCliente() {
         System.out.println("\nInsira o nome do Cliente: ");
         Scanner scanner = new Scanner(System.in);
-        String nome = scanner.nextLine();
-        scanner.nextLine();
+        String nome = Leitor.lerString(-1);
         System.out.println("\nInsira o NIF: ");
         long nif = Leitor.lerNif(); //todo
         scanner.nextLine();

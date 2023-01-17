@@ -68,14 +68,18 @@ public abstract class Leitor {
             try {
                 if (scanner.hasNextLine()) {
                     input = scanner.nextLine();
-                } else {
-                    throw new InputMismatchException("Valor invalido, introduza um valor inteiro: ");
+                    if(input.isEmpty()) {
+                        throw new InputMismatchException("\nString introduzida não pode ser vazia");
+                    }
+                }
+                else {
+                    throw new InputMismatchException("\nValor invalido, introduza um valor inteiro: ");
                 }
 
                 if (tamanho != -1) {
                     if (input.length() != tamanho) {
                         verificado = false;
-                        throw new InputMismatchException("Valor invalido, introduza um valor com " + tamanho + " digitos: ");
+                        throw new InputMismatchException("\nValor invalido, introduza um valor com " + tamanho + " digitos: ");
                     }
                 }
             } catch (Exception e) {
