@@ -14,6 +14,6 @@ public class MBWay extends CartaoCredito {
 
     @Override
     public boolean verificarLimite(double valor) {
-        return super.verificarLimite(valor) && gastos <= conta.getSaldo();
+        return super.verificarLimite(valor) && conta.getSaldo() - (gastos + valor) < 0;
     }
 }

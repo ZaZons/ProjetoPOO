@@ -1,4 +1,4 @@
-public class CartaoDebito extends MetodoPagamento {
+public class CartaoDebito implements MetodoPagamento {
     protected long id;
     protected ContaBancaria conta;
     protected Data dataValidade;
@@ -15,8 +15,22 @@ public class CartaoDebito extends MetodoPagamento {
         return id;
     }
 
-    protected void continuarPagamento(double valor, Data data, Estabelecimento estabelecimento) {
-        Transacao transacao = new Transacao(data, valor, this, conta.getCliente(), estabelecimento);
+    @Override
+    public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
+        if (valor > conta.getSaldo()) {
+            System.out.println("Transacao rejeitada, saldo insuficiente");
+            return;
+        }
+
+        if (!verificarCodigo()) {
+            return;
+        }
+
+        continuarPagamento(valor, estabelecimento);
+    }
+
+    protected void continuarPagamento(double valor, Estabelecimento estabelecimento) {
+        Transacao transacao = new Transacao(new Data(), valor, this, conta.getCliente(), estabelecimento);
         conta.addTransacao(transacao);
     }
 
@@ -27,19 +41,14 @@ public class CartaoDebito extends MetodoPagamento {
                 '}';
     }
 
-    //    protected int verificacao(int pin, double valor) {
-//        if (valor <= 0) {
-//            return -1;
-//        }
-//
-//        if (!verificarCodigo(pin)) {
-//            return -2;
-//        }
-//
-//        return 0;
-//    }
+    protected boolean verificarCodigo() {
+        System.out.println("Introduza o pin: ");
+        int pin = Leitor.lerPin();
+        if (pin != this.pin) {
+            System.out.println("Transacao rejeitada, o pin introduzido esta errado");
+            return false;
+        }
 
-    protected boolean verificarCodigo(int pin) {
-        return this.pin == pin;
+        return true;
     }
 }

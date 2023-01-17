@@ -12,6 +12,20 @@ public class CartaoCredito extends CartaoDebito{
     }
 
     @Override
+    public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
+        if (!verificarLimite(valor)) {
+            System.out.println("Transacao rejeitada, limite ultrapassado");
+            return;
+        }
+
+        if (!this.verificarCodigo()) {
+            return;
+        }
+
+        continuarPagamento(valor, estabelecimento);
+    }
+
+    @Override
     public String toString(String nivel) {
         return "CartaoCredito {" + "\n\t" + nivel +
                 "Id = " + id + "\n\t" + nivel +
