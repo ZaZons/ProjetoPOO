@@ -8,6 +8,9 @@ public class Data implements Serializable {
     private final int hora;
     private final int minutos;
 
+    /**
+     * Função responsável por inicializar a classe e obter automaticamente a data e hora atual. todo - rever descricao
+     */
     public Data() {
         LocalDateTime currentTime = LocalDateTime.now();
         this.dia = currentTime.getDayOfMonth();
@@ -27,6 +30,10 @@ public class Data implements Serializable {
     public int getAno() {
         return ano;
     }
+
+    /**
+     * Devolve numa String a data e hora registadas.
+     */
     @Override
     public String toString() {
         return dia + "/" + mes + "/" + ano + " " + hora + ":" + minutos;

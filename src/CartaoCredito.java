@@ -35,10 +35,16 @@ public class CartaoCredito extends CartaoDebito{
                 '}';
     }
 
+    /**
+     * Verifica se o valor de compras previamente efetuadas.
+     */
     public boolean verificarLimite(double valor) {
         return gastos + valor <= limite;
     }
 
+    /**
+     * Adiciona o valor da ultima transação ao valor total gasto por este método de pagamento.
+     */
     public void addGastos(double valor) {
         gastos += valor;
     }
