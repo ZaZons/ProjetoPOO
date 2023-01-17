@@ -35,11 +35,17 @@ public class Cliente extends Identificador {
         this.conta = conta;
     }
 
+    /**
+     * Devolve uma String contendo o nome e o NIF do cliente.
+     */
     public String toString(String nivel) {
         return "\t" + nivel + "Nome = " + nome + ",\n\t" + nivel +
                 "NIF = " + nif;
     }
 
+    /**
+     * Devolve uma String que contem a lista de dados e conta de clientes.
+     */
     public static String listarClientes(LinkedList<Cliente> clientesList, String nivel) {
         if (clientesList.isEmpty()) {
             return "[\n\t" + nivel + "<Sem clientes>\n" + nivel + "]";
@@ -78,7 +84,11 @@ public class Cliente extends Identificador {
         return res.toString();
     }
 
-
+    /**
+     * Regista novos clientes,
+     * criando também uma conta bancária com saldo inicial e métodos de pagamento, e respetivos dados.
+     * Adiciona-os ao estabelecimento.
+     */
     public static void registarCliente(Estabelecimento estabelecimento) {
         System.out.println("Insira o nome do Cliente: ");
         String nome = Leitor.lerString(-1);

@@ -16,6 +16,11 @@ public class CartaoDebito implements MetodoPagamento {
         return id;
     }
 
+    /**
+     * Efetua uma transação, recebendo como parâmetros o valor e o estabelecimento a receber.
+     * Não permite a sua execução caso o cliente não tenha saldo sufuciente ou erre o PIN.
+     * Caso efetuada com sucesso, procede para a funcao continuarPagamento().
+     */
     @Override
     public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
         if (valor > conta.getSaldo()) {
@@ -55,11 +60,18 @@ public class CartaoDebito implements MetodoPagamento {
         return true;
     }
 
+    /**
+     *Cria um registo de transação, recebendo como parâmentros o valor e o estabelecimento a receber.
+     * Adiciona a nova transação à lista de transações do cliente.
+     */
     protected void continuarPagamento(double valor, Estabelecimento estabelecimento) {
         Transacao transacao = new Transacao(valor, this, conta.getCliente(), estabelecimento);
         conta.addTransacao(transacao);
     }
 
+    /**
+     * todo
+     */
     public String toString(String nivel) {
         return "CartaoDebito {" + "\n\t" + nivel +
                 "Id = " + id + "\n\t" + nivel +
@@ -67,11 +79,15 @@ public class CartaoDebito implements MetodoPagamento {
                 '}';
     }
 
+    /**
+     * Verifica se o Pin do método de pagamento é verdadeiro.
+     * Devolve boleano conforme o resultado da operação.
+     */
     protected boolean verificarCodigo() {
         System.out.println("Introduza o pin: ");
         int pin = Leitor.lerPin();
         if (pin != this.pin) {
-            System.out.println("Transacao rejeitada, o pin introduzido esta errado");
+            System.out.println("Transacao rejeitada, o pin introduzido está errado");
             return false;
         }
 
