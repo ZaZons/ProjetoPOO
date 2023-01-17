@@ -5,6 +5,7 @@ public class ContaBancaria {
     private double saldo;
     private final LinkedList<Transacao> transacoesList;
     private final LinkedList<MetodoPagamento> metodosPagamentoList;
+    private boolean temNumerario;
 
     public ContaBancaria(Cliente cliente, double saldo) {
         this.cliente = cliente;
@@ -16,6 +17,7 @@ public class ContaBancaria {
         this.saldo = Math.abs(saldo);
         this.transacoesList = new LinkedList<>();
         this.metodosPagamentoList = new LinkedList<>();
+        this.temNumerario = false;
         cliente.setConta(this);
     }
 
@@ -25,6 +27,14 @@ public class ContaBancaria {
 
     public double getSaldo() {
         return saldo;
+    }
+
+    public void setTemNumerario(boolean temNumerario) {
+        this.temNumerario = temNumerario;
+    }
+
+    public boolean isTemNumerario() {
+        return temNumerario;
     }
 
     public LinkedList<Transacao> getTransacoesList() {
@@ -45,12 +55,12 @@ public class ContaBancaria {
     }
 
     public String listarMetodosPagamento(String nivel) {
-        if (metodosPagamentoList.isEmpty()) {
+        if (metodosPagamentoList.isEmpty() || (metodosPagamentoList.size() == 1 && temNumerario)) {
             return "[\n\t" + nivel + "<Sem metodos de pagamento>\n" + nivel + "]";
         }
 
         StringBuilder metodosPagamentoStr = new StringBuilder();
-        metodosPagamentoStr.append("Metodos de pagamento [");
+        metodosPagamentoStr.append("[");
         for (MetodoPagamento metodo : metodosPagamentoList) {
             if (metodo instanceof CartaoDebito) {
                 metodosPagamentoStr.append("\n\t");
@@ -62,8 +72,10 @@ public class ContaBancaria {
                 metodosPagamentoStr.append(",");
             }
         }
-        metodosPagamentoStr.append("\n");
 
+        metodosPagamentoStr.append("\n");
+        metodosPagamentoStr.append(nivel);
+        metodosPagamentoStr.append("]");
 
         return metodosPagamentoStr.toString();
     }

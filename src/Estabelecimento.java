@@ -70,21 +70,17 @@ public class Estabelecimento extends Identificador{
     public void showEstatisticas() {
         System.out.println("Numero de clientes registados: " + clientesList.size());
         System.out.println("Numero de transacoes registadas: " + transacoesList.size());
-        System.out.println("\n");
-        System.out.println("Cliente com mais transacoes registadas: " + clienteComMaisTransacoes());
+        System.out.println("\nCliente com mais transacoes registadas: " + clienteComMaisTransacoes());
         System.out.println("Cliente que despendeu maior valor: " + clienteQueMaisGastou());
-        System.out.println("\n");
-        System.out.println("Transacao de maior valor: " + transacaoDeMaiorValor());
-        System.out.println("Transacao de menor valor: " + transacaoDeMenorValor());
+        System.out.println("\nTransacao de maior valor: " + transacaoDeMaiorValor().toString(""));
+        System.out.println("Transacao de menor valor: " + transacaoDeMenorValor().toString(""));
         System.out.println("Valor medio das transacoes: " + valorMedioDasTransacoes());
-        System.out.println("\n");
-        System.out.println("Total de receitas do estabelecimento: " + receitas);
-        System.out.println("\n");
-        System.out.println("Percentagem de transacoes por metodo de pagamento {");
-        System.out.println("\tCartao de Debito: " + percentagemMetodos()[0] / transacoesList.size() * 100 + "% (" + percentagemMetodos()[0] + ")");
-        System.out.println("\tCartao de Credito: " + percentagemMetodos()[1] / transacoesList.size() * 100 + "% (" + percentagemMetodos()[1] + ")");
-        System.out.println("\tMBWay: " + percentagemMetodos()[2] / transacoesList.size() * 100 + "% (" + percentagemMetodos()[2] + ")");
-        System.out.println("\tNumerario: " + percentagemMetodos()[3] / transacoesList.size() * 100 + "% (" + percentagemMetodos()[3] + ")");
+        System.out.println("\nTotal de receitas do estabelecimento: " + getReceitas());
+        System.out.println("\nPercentagem de transacoes por metodo de pagamento {");
+        System.out.println("\tCartao de Debito: " + percentagemMetodos()[0][1] + "% (" + percentagemMetodos()[0][0] + ")");
+        System.out.println("\tCartao de Credito: " + percentagemMetodos()[1][1] + "% (" + percentagemMetodos()[1][0] + ")");
+        System.out.println("\tMBWay: " + percentagemMetodos()[2][1] + "% (" + percentagemMetodos()[2][0] + ")");
+        System.out.println("\tNumerario: " + percentagemMetodos()[3][1] + "% (" + percentagemMetodos()[3][0] + ")");
         System.out.println("}");
     }
 
@@ -93,10 +89,12 @@ public class Estabelecimento extends Identificador{
         HashMap<Cliente, Integer> clientesETransacoes = new HashMap<>();
 
         for (Transacao t : transacoesList) {
-            if (!clientesETransacoes.containsKey(t.getCliente())) {
-                clientesETransacoes.put(t.getCliente(), 1);
-            } else {
-                clientesETransacoes.put(t.getCliente(), clientesETransacoes.get(t.getCliente()) + 1);
+            if (t.getCliente().getNif() != Cliente.NIF_GENERICO) {
+                if (!clientesETransacoes.containsKey(t.getCliente())) {
+                    clientesETransacoes.put(t.getCliente(), 1);
+                } else {
+                    clientesETransacoes.put(t.getCliente(), clientesETransacoes.get(t.getCliente()) + 1);
+                }
             }
         }
 
@@ -159,6 +157,10 @@ public class Estabelecimento extends Identificador{
     }
 
     private double valorMedioDasTransacoes() {
+        if (transacoesList.isEmpty()) {
+            return 0;
+        }
+
         double valorTotal = 0;
 
         for (Transacao t : transacoesList) {
@@ -168,24 +170,30 @@ public class Estabelecimento extends Identificador{
         return valorTotal / transacoesList.size();
     }
 
-    private double[] percentagemMetodos() {
-        double[] metodos = new double[4];
+    private int[][] percentagemMetodos() {
+        int[][] metodos = new int[4][2];
 
-        // todo implementar isto:
-        // https://stackoverflow.com/questions/5579309/is-it-possible-to-use-the-instanceof-operator-in-a-switch-statement
         for (Transacao t : transacoesList) {
             if (t.getMetodoPagamento() instanceof Numerario) {
-                metodos[3]++;
+                metodos[3][0]++;
+                metodos[3][1] = metodos[3][0] / transacoesList.size() * 100;
             } else if (t.getMetodoPagamento() instanceof MBWay) {
-                metodos[2]++;
+                metodos[2][0]++;
+                metodos[2][1] = metodos[2][0] / transacoesList.size() * 100;
             } else if (t.getMetodoPagamento() instanceof CartaoCredito) {
-                metodos[1]++;
+                metodos[1][0]++;
+                metodos[1][1] = metodos[1][0] / transacoesList.size() * 100;
             } else if (t.getMetodoPagamento() instanceof CartaoDebito) {
-                metodos[0]++;
+                metodos[0][0]++;
+                metodos[0][1] = metodos[0][0] / transacoesList.size() * 100;
             }
         }
 
         return metodos;
+    }
+
+    public void registarCliente() {
+        Cliente.registarCliente(this);
     }
 
     public void registarTransacao() {

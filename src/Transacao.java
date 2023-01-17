@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.Scanner;
 
 public class Transacao {
     private final Data data;
@@ -14,10 +13,6 @@ public class Transacao {
         this.metodoPagamento = metodoPagamento;
         this.cliente = cliente;
         this.estabelecimento = estabelecimento;
-    }
-
-    public Data getData() {
-        return data;
     }
 
     public double getValor() {
@@ -44,7 +39,7 @@ public class Transacao {
                 "Data = " + data + ",\n\t" + nivel +
                 "Valor = " + valor + ",\n\t" + nivel +
                 "Metodo de pagamento = " + metodoPagamentoStr + ",\n\t" + nivel +
-                "Estabelecimento = '" + estabelecimento.getNome() + "'\n" + nivel +
+                "Estabelecimento = " + estabelecimento.getNome() + "\n" + nivel +
                 "}";
     }
 
@@ -75,7 +70,7 @@ public class Transacao {
     public static void registarTransacao(Estabelecimento estabelecimento) {
         System.out.println("Clientes [");
         for (Cliente c : estabelecimento.getClientesList()) {
-            System.out.println("\t" + c.getNome());
+            System.out.println("\t" + c.getNome() + " (" + c.getNif() + ")");
         }
         System.out.println("]");
 
@@ -98,26 +93,6 @@ public class Transacao {
 //        }while(!validacaoCliente);
         } while (clienteTransacao == null);
 
-        MetodoPagamento metodoSelecionado = null;
-        LinkedList<MetodoPagamento> metodosCliente = clienteTransacao.getConta().getMetodosPagamentoList();
-        do {
-            System.out.println("\n" + clienteTransacao.getConta().listarMetodosPagamento(""));
-            System.out.println("\nSelecione um dos metodos de pagamento apresentados: ");
-
-            long idSelecionado = Long.parseLong(Leitor.lerString(1));
-            for (MetodoPagamento m : metodosCliente) {
-                if (m instanceof CartaoDebito) {
-                    if (((CartaoDebito) m).getId() == idSelecionado) {
-                        metodoSelecionado = m;
-                    }
-                }
-            }
-
-            if (metodoSelecionado == null) {
-                System.out.println("\nMétodo inválido!");
-            }
-        } while (metodoSelecionado == null);
-
         double valorTransacao;
         do {
             System.out.println("\nValor da transação: ");
@@ -127,6 +102,47 @@ public class Transacao {
                 System.out.println("Valor inválido [Inferior ou igual a 0]");
             }
         } while (valorTransacao <= 0);
+
+        MetodoPagamento metodoSelecionado = null;
+        LinkedList<MetodoPagamento> metodosCliente = clienteTransacao.getConta().getMetodosPagamentoList();
+        do {
+            System.out.println("\n" + clienteTransacao.getConta().listarMetodosPagamento(""));
+            System.out.println("ou \nNumerario (0)");
+            System.out.println("\nSelecione um dos metodos de pagamento apresentados: ");
+
+            int tamanho = clienteTransacao.getConta().isTemNumerario() ? metodosCliente.size() - 1 : metodosCliente.size();
+            int idSelecionado = Leitor.lerInteiro(0, tamanho);
+            if (idSelecionado == 0) {
+                Numerario numerario = null;
+                for (MetodoPagamento m : metodosCliente) {
+                    if (m instanceof Numerario) {
+                        numerario = (Numerario) m;
+                    }
+                }
+
+                if (numerario == null) {
+                    System.out.println("\nIntroduza o valor entregue: ");
+                    double valorEntregue = Leitor.lerDouble(valorTransacao, 99999);
+                    metodoSelecionado = new Numerario(valorEntregue);
+                    clienteTransacao.getConta().addMetodoPagamento(metodoSelecionado);
+                    clienteTransacao.getConta().setTemNumerario(true);
+                } else {
+                    metodoSelecionado = numerario;
+                    System.out.println("\nTem " + numerario.getValorEntregue() + " restantes.");
+                    System.out.println("Introduza o valor que pretende adicionar: ");
+                    double valorAAdicionar = Leitor.lerDouble(valorTransacao - numerario.getValorEntregue(), 99999);
+                    numerario.addValor(valorAAdicionar);
+                }
+            } else {
+                for (MetodoPagamento m : metodosCliente) {
+                    if (m instanceof CartaoDebito) {
+                        if (((CartaoDebito) m).getId() == idSelecionado) {
+                            metodoSelecionado = m;
+                        }
+                    }
+                }
+            }
+        } while (metodoSelecionado == null);
 
         metodoSelecionado.efetuarPagamento(valorTransacao, estabelecimento);
     }

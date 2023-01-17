@@ -1,11 +1,17 @@
 import java.time.LocalDateTime;
-import java.util.Scanner;
 
 import java.util.LinkedList;
 
 public class Cliente extends Identificador {
+    public static final long NIF_GENERICO = 999999990;
+    public static final String CLIENTE_GENERICO = "Consumidor final";
     private final long nif;
     private ContaBancaria conta;
+
+    public Cliente() {
+        super();
+        this.nif = NIF_GENERICO;
+    }
 
     public Cliente(String nome, long nif) {
         super(nome);
@@ -32,7 +38,7 @@ public class Cliente extends Identificador {
     }
 
     public String toString(String nivel) {
-        return "\t" + nivel + "Nome = '" + nome + "',\n\t" + nivel +
+        return "\t" + nivel + "Nome = " + nome + ",\n\t" + nivel +
                 "NIF = " + nif;
     }
 
@@ -75,27 +81,23 @@ public class Cliente extends Identificador {
     }
 
 
-    public static Cliente registarCliente() {
-        System.out.println("\nInsira o nome do Cliente: ");
-        Scanner scanner = new Scanner(System.in);
+    public static void registarCliente(Estabelecimento estabelecimento) {
+        System.out.println("Insira o nome do Cliente: ");
         String nome = Leitor.lerString(-1);
+
         System.out.println("\nInsira o NIF: ");
-        long nif = Leitor.lerNif(); //todo
-        scanner.nextLine();
+        long nif = Leitor.lerNif();
 
         System.out.println("\nSaldo inicial da conta: ");
-        long saldo = Leitor.lerLong(0, 9999999);
-
+        double saldo = Leitor.lerDouble(0, 9999999);
 
         Cliente novoCliente = new Cliente(nome, nif, saldo);
-
         ContaBancaria novaConta = novoCliente.getConta();
 
         System.out.println("\nDeseja adicionar métodos de Pagamento? (S/N)");
         String opcao = Leitor.lerString(1);
-        String opcaoRepeticao = "";
         do {
-            if (opcao.equals("S")) {
+            if (opcao.equalsIgnoreCase("S")) {
                 System.out.println("\nMétodo pretendido:\n\t1. Debito\n\t2. Crédito\n\t3. MbWay");
                 int opcaoMetodo = Leitor.lerInteiro(1,3);
 
@@ -112,19 +114,20 @@ public class Cliente extends Identificador {
                     System.out.println("\nInsira o valor extra limite da conta: ");
 
                     long limite = Leitor.lerLong(0, 9999);
-                    scanner.nextLine();
                     if (opcaoMetodo == 2) {
                         novaConta.addMetodoPagamento(new CartaoCredito(id, novaConta, dataDeValidade, pin, limite));
                     } else {
                         novaConta.addMetodoPagamento(new MBWay(id, novaConta, dataDeValidade, pin, limite));
                     }
                 }
-                System.out.println("\nDeseja adicinar mais métoodos de pagamentos? (S/N)");
-                opcaoRepeticao = Leitor.lerString(1);
+                System.out.println("\nDeseja adicinar mais métodos de pagamentos? (S/N)");
+                opcao = Leitor.lerString(1);
+            } else if (!opcao.equalsIgnoreCase("N")) {
+                System.out.println("\nOpcao invalida, introduza uma opcao valida: ");
+                opcao = Leitor.lerString(1);
             }
+        } while (!opcao.equalsIgnoreCase("N"));
 
-        }while (opcaoRepeticao.equals("S"));
-
-        return novoCliente;
+        estabelecimento.addCliente(novoCliente);
     }
 }

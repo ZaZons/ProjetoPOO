@@ -5,6 +5,14 @@ public class Numerario implements MetodoPagamento {
         this.valorEntregue = valorEntregue;
     }
 
+    public double getValorEntregue() {
+        return valorEntregue;
+    }
+
+    public void addValor(double valor) {
+        valorEntregue += valor;
+    }
+
     @Override
     public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
         if (valorEntregue < valor) {
@@ -13,7 +21,7 @@ public class Numerario implements MetodoPagamento {
         }
 
         valorEntregue -= valor;
-        Cliente clienteAnonimo = new Cliente("Consumidor final", 999999990);
+        Cliente clienteAnonimo = new Cliente();
         Transacao transacao = new Transacao(new Data(), valor, this, clienteAnonimo, estabelecimento);
         estabelecimento.addTransacao(transacao);
     }

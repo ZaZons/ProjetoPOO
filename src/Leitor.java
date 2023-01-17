@@ -52,7 +52,7 @@ public abstract class Leitor {
             try {
                 stuff = Long.parseLong(lerString(length));
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println("PIN invalido, introduza um pin valido: ");
             }
         } while (stuff == 0);
 
@@ -66,27 +66,22 @@ public abstract class Leitor {
         boolean verificado = true;
         do {
             try {
-                if (scanner.hasNextLine()) {
-                    input = scanner.nextLine();
-                    if(input.isEmpty()) {
-                        throw new InputMismatchException("\nString introduzida não pode ser vazia");
-                    }
-                }
-                else {
-                    throw new InputMismatchException("\nValor invalido, introduza um valor inteiro: ");
+                input = scanner.nextLine();
+                if(input.isEmpty()) {
+                    throw new InputMismatchException("\nString introduzida não pode ser vazia");
                 }
 
                 if (tamanho != -1) {
                     if (input.length() != tamanho) {
-                        verificado = false;
                         throw new InputMismatchException("\nValor invalido, introduza um valor com " + tamanho + " digitos: ");
+                    } else {
+                        verificado = true;
                     }
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                verificado = false;
             }
-
-            scanner.nextLine();
         } while (!verificado);
 
         return input;

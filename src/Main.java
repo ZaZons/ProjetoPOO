@@ -15,13 +15,20 @@ public class Main {
                     System.out.println(Cliente.listarClientes(cafeDoJoao.getClientesList(), ""));
                     break;
                 case 3:
-                    Cliente cliente = Cliente.registarCliente(); //feito pleo stor, adicionado var por nao estar a receber valor returned todo
+                    cafeDoJoao.registarCliente();
                     break;
                 case 4:
                     cafeDoJoao.registarTransacao();
                     break;
                 case 5:
                     cafeDoJoao.showEstatisticas();
+                    break;
+                case 6:
+                case 7:
+                    //todo gravacoes e carregamentos
+                    break;
+                case 0:
+                    System.out.println("Adeus!!!");
                     break;
             }
             System.out.print("\n");
@@ -36,17 +43,17 @@ public class Main {
         System.out.println("5. Mostrar estatisticas");
         System.out.println("6. Gravar informação");
         System.out.println("7. Carregar informação");
-        System.out.println("8. Sair");
+        System.out.println("0. Sair");
 
-        return Leitor.lerInteiro(1, 8);
+        return Leitor.lerInteiro(0, 7);
     }
 
     public static Estabelecimento testValues() {
         Estabelecimento e = new Estabelecimento("Cafe do Joao", 0);
-        Cliente clienteJoao = new Cliente("Joao Miguel", 1094010395);
-        Cliente clienteSantiago = new Cliente("Santiago Santos", 1005839065, 50);
-        Cliente clienteJoana = new Cliente("Joana Mira", 1027747976, 100);
-        Cliente clienteMatilde = new Cliente("Matilde Agostinho", 1094088183, -3);
+        Cliente clienteJoao = new Cliente("Joao Miguel", 423567543);
+        Cliente clienteSantiago = new Cliente("Santiago Santos", 100583906, 50);
+        Cliente clienteJoana = new Cliente("Joana Mira", 473625364, 100);
+        Cliente clienteMatilde = new Cliente("Matilde Agostinho", 948374615, -3);
 
         e.addCliente(clienteJoao);
         e.addCliente(clienteSantiago);
