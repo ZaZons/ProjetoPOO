@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class Estabelecimento extends Identificador{
+public class Estabelecimento extends Identificador {
     private double receitas;
     private final LinkedList<Transacao> transacoesList;
     private final LinkedList<Cliente> clientesList;

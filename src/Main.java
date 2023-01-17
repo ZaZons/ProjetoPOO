@@ -1,9 +1,12 @@
 public class Main {
     public static void main(String[] args) {
         Estabelecimento cafeDoJoao = testValues();
+//        Estabelecimento cafeDoJoao = new Estabelecimento("Cafe do Jonas", 0);
         int opcao;
 
+        //todo comentar funcoes
         do {
+            System.out.println(cafeDoJoao.getNome());
             opcao = menu();
 
             System.out.print("\n");
@@ -24,8 +27,10 @@ public class Main {
                     cafeDoJoao.showEstatisticas();
                     break;
                 case 6:
+                    Ficheiros.gravar(cafeDoJoao);
+                    break;
                 case 7:
-                    //todo gravacoes e carregamentos
+                    cafeDoJoao = Ficheiros.ler();
                     break;
                 case 0:
                     System.out.println("Adeus!!!");

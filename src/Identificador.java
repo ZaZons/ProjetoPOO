@@ -1,4 +1,6 @@
-public class Identificador {
+import java.io.Serializable;
+
+public class Identificador implements Serializable {
     protected String nome;
 
     public Identificador() {

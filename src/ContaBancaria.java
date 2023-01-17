@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class ContaBancaria {
+public class ContaBancaria implements Serializable {
     private final Cliente cliente;
     private double saldo;
     private final LinkedList<Transacao> transacoesList;
@@ -47,9 +48,9 @@ public class ContaBancaria {
 
     public String toString(String nivel) {
         return "Conta Bancaria {" + "\n\t" + nivel +
-                "Cliente = '" + cliente.getNome() + "' (" + cliente.getNif() + "),\n\t" + nivel +
+                "Cliente = " + cliente.getNome() + " (" + cliente.getNif() + "),\n\t" + nivel +
                 "Saldo = " + saldo + ",\n\t" + nivel +
-                "Transacoes " + Transacao.listarTransacoes(transacoesList, nivel + "\t") + ",\n\t" + nivel +
+                "Transacoes " + Transacao.listarTransacoes(getTransacoesList(), nivel + "\t") + ",\n\t" + nivel +
                 "Metodos de pagamento " + listarMetodosPagamento(nivel + "\t") + "\n" + nivel +
                 "}";
     }
