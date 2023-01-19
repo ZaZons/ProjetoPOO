@@ -47,6 +47,9 @@ public class Transacao implements Serializable {
                 "}";
     }
 
+    /**
+     * Devolve uma lista das transações efetuadas.
+     */
     public static String listarTransacoes(LinkedList<Transacao> transacoesList, String nivel) {
         if (transacoesList.isEmpty()) {
             return "[\n\t" + nivel + "<Sem transacoes>\n" + nivel + "]";
@@ -71,6 +74,15 @@ public class Transacao implements Serializable {
 
         return res.toString();
     }
+
+    /**
+     * Regista uma nova transação.
+     * Permite ao utilizador selecionar qual o cliente que vai realizar a transação, o valor da mesma e o método de pagamento.
+     * Caso selecione Numerário como método de pagamento então:
+     *      Verifica se a conta já tem um numerário registado;
+     *      Se tiver verifica quanto valor tem restante e se o cliente pretende adicionar algum.
+     * Efetua o pagamento a partir do método.
+     */
     public static void registarTransacao(Estabelecimento estabelecimento) {
         System.out.println("Clientes [");
         for (Cliente c : estabelecimento.getClientesList()) {
@@ -78,7 +90,6 @@ public class Transacao implements Serializable {
         }
         System.out.println("]");
 
-//        boolean validacaoCliente = false;
         Cliente clienteTransacao = null;
         do {
             System.out.println("\nInsira o NIF de um cliente da lista apresentada: ");
@@ -87,14 +98,12 @@ public class Transacao implements Serializable {
             for (Cliente cliente1 : estabelecimento.getClientesList()) {
                 if (cliente1.getNif() == nifCliente) {
                     clienteTransacao = cliente1;
-//                    validacaoCliente = true;
                 }
             }
 
             if (clienteTransacao == null) {
                 System.out.println("\nCliente inválido!");
             }
-//        }while(!validacaoCliente);
         } while (clienteTransacao == null);
 
         double valorTransacao;

@@ -3,8 +3,7 @@ import java.util.Scanner;
 
 public abstract class Leitor {
     /**
-     * Executa a função lerDouble e devolve o seu resultado convertido em int.
-     * É recebido por parâmentro valores minimos e máximos.
+     * Lê um inteiro, tendo em conta os mínimos e máximos introduzidos.
      */
     public static int lerInteiro(int min, int max) {
         Scanner scanner = new Scanner(System.in);
@@ -32,8 +31,7 @@ public abstract class Leitor {
     }
 
     /**
-     * Executa a função lerDouble e devolve o seu resultado convertido em long.
-     * É recebido por parâmentro valores minimos e máximos.
+     * Lê um long, tendo em conta os mínimos e máximos introduzidos.
      */
     public static long lerLong(long min, long max) {
         Scanner scanner = new Scanner(System.in);
@@ -61,9 +59,7 @@ public abstract class Leitor {
     }
 
     /**
-     * Função pede ao utilizador que sejam introduzidos valores.
-     * Faz as respetivas validações conforme os valores recebidos por parâmentro.
-     * Envia mensagem de erro conforme o tipo de erro encontrado.
+     * Lê um double, tendo em conta os mínimos e máximos introduzidos.
      */
     public static double lerDouble(double min, double max) {
         Scanner scanner = new Scanner(System.in);
@@ -91,36 +87,74 @@ public abstract class Leitor {
     }
 
     /**
-     * Executa a função lerStuff, enviando um parâmetro pré-definido nesta função.
+     * Lê o NIF do utilizador e devolve-o.
      */
     public static long lerNif() {
-        return lerStuff(9, "NIF invalido, introduza um NIF valido: ");
-    }
+        Scanner scanner = new Scanner(System.in);
 
-    /**
-     * Executa a função lerStuff, enviando um parâmetro pré-definido nesta função.
-     */
-    public static int lerPin() {
-        return (int) lerStuff(4, "PIN invalido, introduza um PIN valido: ");
-    }
-
-    /**
-     *
-     */
-    private static long lerStuff(long length, String errorMsg) {
-        long stuff = 0;
-
+        int tamanho = 9;
+        String input;
+        boolean verificado;
+        long res = 0;
         do {
             try {
-                stuff = Long.parseLong(lerString(length));
-            } catch (Exception e) {
-                System.out.println(errorMsg);
-            }
-        } while (stuff == 0);
+                input = scanner.nextLine();
+                if(input.isEmpty()) {
+                    throw new InputMismatchException("\nString introduzida não pode ser vazia");
+                }
 
-        return stuff;
+                if (input.length() != tamanho) {
+                    throw new InputMismatchException("\nValor invalido, introduza um valor com " + tamanho + " digitos: ");
+                } else {
+                    verificado = true;
+                }
+
+                res = Long.parseLong(input);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                verificado = false;
+            }
+        } while (!verificado);
+
+        return res;
     }
 
+    /**
+     * Lê o PIN do método de pagamento do utilizador e devolve-o.
+     */
+    public static int lerPin() {
+        Scanner scanner = new Scanner(System.in);
+
+        int tamanho = 4;
+        String input;
+        boolean verificado;
+        int res = 0;
+        do {
+            try {
+                input = scanner.nextLine();
+                if(input.isEmpty()) {
+                    throw new InputMismatchException("\nString introduzida não pode ser vazia");
+                }
+
+                if (input.length() != tamanho) {
+                    throw new InputMismatchException("\nValor invalido, introduza um valor com " + tamanho + " digitos: ");
+                } else {
+                    verificado = true;
+                }
+
+                res = Integer.parseInt(input);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                verificado = false;
+            }
+        } while (!verificado);
+
+        return res;
+    }
+
+    /**
+     * Lê uma String introduzida e devolve-a
+     */
     public static String lerString(long tamanho) {
         Scanner scanner = new Scanner(System.in);
 
