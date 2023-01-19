@@ -7,40 +7,57 @@ public abstract class Leitor {
      * É recebido por parâmentro valores minimos e máximos.
      */
     public static int lerInteiro(int min, int max) {
-        int lido = -1;
-        boolean verificar;
+        Scanner scanner = new Scanner(System.in);
 
+        int input = -1;
         do {
             try {
-                lido = (int) lerDouble(min, max);
-                verificar = true;
-            } catch (Exception e) {
-                System.out.println("Introduza um numero valido.");
-                verificar = false;
-            }
-        } while (!verificar);
+                if (scanner.hasNextInt()) {
+                    input = scanner.nextInt();
+                } else {
+                    throw new InputMismatchException("Valor invalido, introduza um valor inteiro: ");
+                }
 
-        return lido;
+                if (input < min || input > max) {
+                    throw new InputMismatchException("Valor invalido, introduza um valor entre " + min + " e " + max + ": ");
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            scanner.nextLine();
+        } while (input < min || input > max || input == -1);
+
+        return input;
     }
+
     /**
      * Executa a função lerDouble e devolve o seu resultado convertido em long.
      * É recebido por parâmentro valores minimos e máximos.
      */
     public static long lerLong(long min, long max) {
-        long lido = -1;
-        boolean verificar;
+        Scanner scanner = new Scanner(System.in);
 
+        long input = -1;
         do {
             try {
-                lido = (long) lerDouble(min, max);
-                verificar = true;
-            } catch (Exception e) {
-                System.out.println("Introduza um numero valido.");
-                verificar = false;
-            }
-        } while (!verificar);
+                if (scanner.hasNextLong()) {
+                    input = scanner.nextLong();
+                } else {
+                    throw new InputMismatchException("Valor invalido, introduza um valor inteiro: ");
+                }
 
-        return lido;
+                if (input < min || input > max) {
+                    throw new InputMismatchException("Valor invalido, introduza um valor entre " + min + " e " + max + ": ");
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            scanner.nextLine();
+        } while (input < min || input > max || input == -1);
+
+        return input;
     }
 
     /**
@@ -57,7 +74,7 @@ public abstract class Leitor {
                 if (scanner.hasNextDouble()) {
                     input = scanner.nextDouble();
                 } else {
-                    throw new InputMismatchException("Valor invalido, introduza um valor inteiro: ");
+                    throw new InputMismatchException("Valor invalido, introduza um valor decimal: ");
                 }
 
                 if (input < min || input > max) {
