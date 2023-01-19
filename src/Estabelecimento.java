@@ -105,10 +105,11 @@ public class Estabelecimento extends Identificador {
             }
         }
 
+        int maxTransacoes = 0;
         if (!clientesETransacoes.isEmpty()) {
-            int maxTransacoes = 0;
             for (HashMap.Entry<Cliente, Integer> entry : clientesETransacoes.entrySet()) {
                 if (entry.getValue() > maxTransacoes) {
+                    maxTransacoes = entry.getValue();
                     clienteComMaisTransacoes = entry.getKey();
                 }
             }
@@ -129,10 +130,11 @@ public class Estabelecimento extends Identificador {
             }
         }
 
+        double maxGastos = 0;
         if (!clientesEGastos.isEmpty()) {
-            int maxGastos = 0;
             for (HashMap.Entry<Cliente, Double> entry : clientesEGastos.entrySet()) {
                 if (entry.getValue() > maxGastos) {
+                    maxGastos = entry.getValue();
                     clienteComMaisGastos = entry.getKey();
                 }
             }
