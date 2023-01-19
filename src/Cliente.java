@@ -11,12 +11,6 @@ public class Cliente extends Identificador {
         this.nif = NIF_GENERICO;
     }
 
-    public Cliente(String nome, long nif) {
-        super(nome);
-        this.nif = nif;
-        this.conta = new ContaBancaria(this, 0);
-    }
-
     public Cliente(String nome, long nif, double saldoInicial) {
         super(nome);
         this.nif = nif;

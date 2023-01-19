@@ -76,11 +76,6 @@ public class CartaoDebito implements MetodoPagamento {
         conta.addTransacao(transacao);
     }
 
-    @Override
-    public String toString() {
-        return toString("");
-    }
-
     /**
      * Devolve a descrição do objeto.
      * Recebe o nivel em que está, para termos estéticos.

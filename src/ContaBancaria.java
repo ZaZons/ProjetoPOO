@@ -46,11 +46,6 @@ public class ContaBancaria implements Serializable {
         return metodosPagamentoList;
     }
 
-    @Override
-    public String toString() {
-        return toString("");
-    }
-
     public String toString(String nivel) {
         return "Conta Bancaria {" + "\n\t" + nivel +
                 "Cliente = " + cliente.getNome() + " (" + cliente.getNif() + "),\n\t" + nivel +

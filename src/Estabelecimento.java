@@ -56,11 +56,6 @@ public class Estabelecimento extends Identificador {
         clientesList.add(cliente);
     }
 
-    @Override
-    public String toString() {
-        return toString("");
-    }
-
     /**
      * Devolve uma descrição do estabelecimento.
      * Devolve também uma lista com os nomes dos clientes.
