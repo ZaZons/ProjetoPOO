@@ -9,7 +9,7 @@ public class Data implements Serializable {
     private final int minutos;
 
     /**
-     * Função responsável por inicializar a classe e obter automaticamente a data e hora atual. todo - rever descricao
+     * Construtor que constrói uma data atual.
      */
     public Data() {
         LocalDateTime currentTime = LocalDateTime.now();

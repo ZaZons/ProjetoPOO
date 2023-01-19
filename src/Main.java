@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-//        Estabelecimento cafeDoJoao = testValues();
-        Estabelecimento cafeDoJoao = new Estabelecimento("Cafe do Jonas", 0);
+        Estabelecimento cafeDoJoao = testValues();
+//        Estabelecimento cafeDoJoao = new Estabelecimento("Cafe do Jonas", 0);
         int opcao;
 
         // TODO: 17/01/2023 grafico no lucidchart
@@ -43,7 +43,7 @@ public class Main {
 
     /**
      * Cria o menu.
-     * Recebe e devolve a opção escolhida
+     * Recebe e devolve a opção escolhida.
      */
     public static int menu() {
         System.out.println("1. Listar transacoes");

@@ -17,9 +17,11 @@ public class CartaoDebito implements MetodoPagamento {
     }
 
     /**
-     * Efetua uma transação, recebendo como parâmetros o valor e o estabelecimento a receber.
-     * Não permite a sua execução caso o cliente não tenha saldo sufuciente ou erre o PIN.
-     * Caso efetuada com sucesso, procede para a funcao continuarPagamento().
+     * Implementa a função da super classe MetodoPagamento.
+     * Efetua um pagamento, depois de:
+     *      Verificar se a conta tem saldo suficiente;
+     *      Fazer as validações comuns.
+     * Continua o pagamento.
      */
     @Override
     public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
@@ -35,6 +37,11 @@ public class CartaoDebito implements MetodoPagamento {
         continuarPagamento(valor, estabelecimento);
     }
 
+    /**
+     * Verifica as validações comuns a todos os cartões:
+     *      Se o código introduzido está correto;
+     *      Se o cartão é válido.
+     */
     protected boolean validacoesComuns() {
         if (!verificarCodigo()) {
             System.out.println("Codigo incorreto!");
@@ -61,7 +68,7 @@ public class CartaoDebito implements MetodoPagamento {
     }
 
     /**
-     *Cria um registo de transação, recebendo como parâmentros o valor e o estabelecimento a receber.
+     * Cria um registo de transação, recebendo como o valor e o estabelecimento a receber.
      * Adiciona a nova transação à lista de transações do cliente.
      */
     protected void continuarPagamento(double valor, Estabelecimento estabelecimento) {
@@ -69,8 +76,14 @@ public class CartaoDebito implements MetodoPagamento {
         conta.addTransacao(transacao);
     }
 
+    @Override
+    public String toString() {
+        return toString("");
+    }
+
     /**
-     * todo
+     * Devolve a descrição do objeto.
+     * Recebe o nivel em que está, para termos estéticos.
      */
     public String toString(String nivel) {
         return "CartaoDebito {" + "\n\t" + nivel +
@@ -80,8 +93,7 @@ public class CartaoDebito implements MetodoPagamento {
     }
 
     /**
-     * Verifica se o Pin do método de pagamento é verdadeiro.
-     * Devolve boleano conforme o resultado da operação.
+     * Verifica se o PIN introduzido está correto.
      */
     protected boolean verificarCodigo() {
         System.out.println("Introduza o pin: ");

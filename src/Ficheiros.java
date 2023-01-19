@@ -4,11 +4,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public abstract class Ficheiros {
-    public static void gravar(Estabelecimento estabelecimento) {
-        String path = "saveFile.txt";
+    private static final String file = "saveFile.txt";
 
+    /**
+     * Grava os dados do estabelecimento num ficheiro de texto
+     */
+    public static void gravar(Estabelecimento estabelecimento) {
         try {
-            FileOutputStream outputStream = new FileOutputStream(path);
+            FileOutputStream outputStream = new FileOutputStream(file);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(estabelecimento);
             objectOutputStream.close();
@@ -19,12 +22,14 @@ public abstract class Ficheiros {
         }
     }
 
+    /**
+     * Lê os dados guardados no ficheiro
+     * Devolve o estabelecimento lido
+     */
     public static Estabelecimento ler() {
-        String path = "saveFile.txt";
-        Estabelecimento estabelecimento = null;
-
+        Estabelecimento estabelecimento = new Estabelecimento("Novo estabelecimento", 0f);
         try {
-            FileInputStream outputStream = new FileInputStream(path);
+            FileInputStream outputStream = new FileInputStream(file);
             ObjectInputStream objectOutputStream = new ObjectInputStream(outputStream);
             estabelecimento = (Estabelecimento) objectOutputStream.readObject();
             objectOutputStream.close();

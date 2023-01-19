@@ -46,6 +46,11 @@ public class ContaBancaria implements Serializable {
         return metodosPagamentoList;
     }
 
+    @Override
+    public String toString() {
+        return toString("");
+    }
+
     public String toString(String nivel) {
         return "Conta Bancaria {" + "\n\t" + nivel +
                 "Cliente = " + cliente.getNome() + " (" + cliente.getNif() + "),\n\t" + nivel +
@@ -55,6 +60,9 @@ public class ContaBancaria implements Serializable {
                 "}";
     }
 
+    /**
+     * Devolve uma descrição dos métodos de pagamento da conta.
+     */
     public String listarMetodosPagamento(String nivel) {
         if (metodosPagamentoList.isEmpty() || (metodosPagamentoList.size() == 1 && temNumerario)) {
             return "[\n\t" + nivel + "<Sem metodos de pagamento>\n" + nivel + "]";
@@ -81,6 +89,11 @@ public class ContaBancaria implements Serializable {
         return metodosPagamentoStr.toString();
     }
 
+    /**
+     * Adiciona a transação recebida à lista.
+     * Adiciona-a também à lista do estabelecimento.
+     * Subtrai o valor da transação ao saldo da conta.
+     */
     public void addTransacao(Transacao transacao) {
         if (transacoesList.contains(transacao)) {
             return;
@@ -93,6 +106,9 @@ public class ContaBancaria implements Serializable {
         saldo -= transacao.getValor();
     }
 
+    /**
+     * Adiciona um método de pagamento à lista.
+     */
     public void addMetodoPagamento(MetodoPagamento metodo) {
         if (!metodosPagamentoList.contains(metodo)) {
             metodosPagamentoList.add(metodo);

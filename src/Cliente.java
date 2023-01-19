@@ -7,7 +7,7 @@ public class Cliente extends Identificador {
     private ContaBancaria conta;
 
     public Cliente() {
-        super();
+        super(CLIENTE_GENERICO);
         this.nif = NIF_GENERICO;
     }
 
@@ -33,6 +33,11 @@ public class Cliente extends Identificador {
 
     public void setConta(ContaBancaria conta) {
         this.conta = conta;
+    }
+
+    @Override
+    public String toString() {
+        return toString("");
     }
 
     /**

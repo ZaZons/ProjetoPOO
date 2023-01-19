@@ -2,15 +2,23 @@ public class CartaoCredito extends CartaoDebito{
     protected final double limite;
     protected double gastos;
 
-    public double getLimite() {
-        return limite;
-    }
-
     public CartaoCredito(long id, ContaBancaria conta, int pin, double limite) {
         super(id, conta, pin);
         this.limite = limite;
     }
 
+    public double getLimite() {
+        return limite;
+    }
+
+    /**
+     * Implementa a função da super classe MetodoPagamento.
+     * Efetua um pagamento, depois de:
+     *      Verificar se o limite foi ultrapassado;
+     *      Fazer as validações comuns.
+     * Adiciona o valor da compra aos gastos do cartão para verificações de limites futuras.
+     * Continua o pagamento.
+     */
     @Override
     public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
         if (!this.verificarLimite(valor)) {
@@ -36,14 +44,14 @@ public class CartaoCredito extends CartaoDebito{
     }
 
     /**
-     * Verifica se o valor de compras previamente efetuadas.
+     * Verifica se o limite do cartão não será ultrapassado com a próxima compra.
      */
     public boolean verificarLimite(double valor) {
         return gastos + valor <= limite;
     }
 
     /**
-     * Adiciona o valor da ultima transação ao valor total gasto por este método de pagamento.
+     * Adiciona o valor da última transação ao valor total gasto por este método de pagamento.
      */
     public void addGastos(double valor) {
         gastos += valor;

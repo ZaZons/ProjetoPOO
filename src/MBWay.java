@@ -12,6 +12,9 @@ public class MBWay extends CartaoCredito {
                 '}';
     }
 
+    /**
+     * Verifica o limite do MBWay e se a conta tem saldo suficiente para a transação.
+     */
     @Override
     public boolean verificarLimite(double valor) {
         return super.verificarLimite(valor) && conta.getSaldo() - (gastos + valor) < 0;
