@@ -4,8 +4,6 @@ public class Main {
 //        Estabelecimento cafeDoJoao = new Estabelecimento("Cafe do Jonas", 0);
         int opcao;
 
-        // TODO: 17/01/2023 grafico no lucidchart
-        //todo comentar funcoes
         do {
             System.out.println(cafeDoJoao.getNome());
             opcao = menu();

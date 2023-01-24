@@ -56,11 +56,6 @@ public class Estabelecimento extends Identificador {
         clientesList.add(cliente);
     }
 
-    @Override
-    public String toString() {
-        return toString("");
-    }
-
     /**
      * Devolve uma descrição do estabelecimento.
      * Devolve também uma lista com os nomes dos clientes.
@@ -100,7 +95,7 @@ public class Estabelecimento extends Identificador {
         if (!transacoesList.isEmpty()) {
             System.out.println("}\nTransacao de maior valor {\n\t" + transacaoDeMaiorValor().toString("\t"));
             System.out.println("}\nTransacao de menor valor {\n\t" + transacaoDeMenorValor().toString("\t"));
-            System.out.println("}\nValor medio das transacoes: " + valorMedioDasTransacoes());
+            System.out.println("}\nValor medio das transacoes: " + valorMedioTransacoes());
             System.out.println("\nPercentagem de transacoes por metodo de pagamento {");
             System.out.println("\tCartao de Debito: " + percentagemMetodos()[0][1] + "% (" + percentagemMetodos()[0][0] + ")");
             System.out.println("\tCartao de Credito: " + percentagemMetodos()[1][1] + "% (" + percentagemMetodos()[1][0] + ")");
@@ -201,7 +196,7 @@ public class Estabelecimento extends Identificador {
     /**
      * Devolve o valor médio das transações da lista.
      */
-    private double valorMedioDasTransacoes() {
+    private double valorMedioTransacoes() {
         if (transacoesList.isEmpty()) {
             return 0;
         }
