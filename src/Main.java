@@ -11,10 +11,10 @@ public class Main {
             System.out.print("\n");
             switch (opcao) {
                 case 1:
-                    System.out.println(Transacao.listarTransacoes(cafeDoJoao.getTransacoesList(), ""));
+                    System.out.println(cafeDoJoao);
                     break;
                 case 2:
-                    System.out.println(Cliente.listarClientes(cafeDoJoao.getClientesList(), ""));
+                    System.out.println(cafeDoJoao.listarClientes());
                     break;
                 case 3:
                     cafeDoJoao.registarCliente();
@@ -44,7 +44,7 @@ public class Main {
      * Recebe e devolve a opção escolhida.
      */
     public static int menu() {
-        System.out.println("1. Listar transacoes");
+        System.out.println("1. Detalhes do estabelecimento");
         System.out.println("2. Listar clientes");
         System.out.println("3. Registar novo cliente");
         System.out.println("4. Registar nova transacao");

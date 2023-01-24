@@ -36,47 +36,6 @@ public class Cliente extends Identificador {
     }
 
     /**
-     * Devolve uma String que contem a lista de dados e conta de clientes.
-     */
-    public static String listarClientes(LinkedList<Cliente> clientesList, String nivel) {
-        if (clientesList.isEmpty()) {
-            return "[\n\t" + nivel + "<Sem clientes>\n" + nivel + "]";
-        }
-
-        System.out.println("Clientes [");
-        StringBuilder res = new StringBuilder();
-        for (Cliente c : clientesList) {
-            res.append("\t");
-            res.append(nivel);
-            res.append("Cliente ");
-            res.append(clientesList.indexOf(c) + 1);
-            res.append(" {");
-
-            res.append("\n");
-            res.append(nivel);
-            res.append(c.toString(nivel + "\t"));
-
-            res.append(",\n\t\t");
-            res.append(nivel);
-            res.append(c.getConta().toString(nivel + "\t\t"));
-
-            res.append("\n\t");
-            res.append(nivel);
-            res.append("}");
-
-            if (!clientesList.getLast().equals(c)) {
-                res.append(",");
-            }
-            res.append('\n');
-        }
-
-        res.append(nivel);
-        res.append("]");
-
-        return res.toString();
-    }
-
-    /**
      * Regista novos clientes,
      * criando também uma conta bancária com saldo inicial e métodos de pagamento, e respetivos dados.
      * Adiciona-os ao estabelecimento.

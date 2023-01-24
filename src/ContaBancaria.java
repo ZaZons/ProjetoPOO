@@ -34,7 +34,7 @@ public class ContaBancaria implements Serializable {
         this.temNumerario = temNumerario;
     }
 
-    public boolean isTemNumerario() {
+    public boolean getTemNumerario() {
         return temNumerario;
     }
 
@@ -42,7 +42,7 @@ public class ContaBancaria implements Serializable {
         return transacoesList;
     }
 
-    public LinkedList<MetodoPagamento> getMetodosPagamentoList() {
+        public LinkedList<MetodoPagamento> getMetodosPagamentoList() {
         return metodosPagamentoList;
     }
 

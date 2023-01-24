@@ -60,23 +60,59 @@ public class Estabelecimento extends Identificador {
      * Devolve uma descrição do estabelecimento.
      * Devolve também uma lista com os nomes dos clientes.
      */
-    public String toString(String nivel) {
+    @Override
+    public String toString() {
         StringBuilder clientesStr = new StringBuilder();
 
         for (Cliente c : clientesList) {
             clientesStr.append("\n\t\t");
-            clientesStr.append(nivel);
             clientesStr.append("'");
             clientesStr.append(c.getNome());
             clientesStr.append("'");
         }
 
-        return "Estabelecimento {" + "\n\t" + nivel +
-                "Nome = '" + nome + "',\n\t" + nivel +
-                "Valor das receitas = " + receitas + ",\n\t" + nivel +
-                "Transacoes = " + Transacao.listarTransacoes(transacoesList, nivel + "\t") + ",\n\t" + nivel +
-                "Clientes [" + clientesStr + "\n\t" + nivel + "]\n" + nivel +
+        return "Estabelecimento {" + "\n\t" +
+                "Nome = '" + nome + "',\n\t" +
+                "Valor das receitas = " + receitas + ",\n\t" +
+                "Transacoes = " + listarTransacoes() + ",\n\t" +
+                "Clientes [" + clientesStr + "\n\t]\n" +
                 "}";
+    }
+
+    /**
+     * Devolve uma String que contem a lista de dados e conta de clientes.
+     */
+    public String listarClientes() {
+        if (clientesList.isEmpty()) {
+            return "[\n\t<Sem clientes>\n]";
+        }
+
+        System.out.println("Clientes [");
+        StringBuilder res = new StringBuilder();
+        for (Cliente c : clientesList) {
+            res.append("\t");
+            res.append("Cliente ");
+            res.append(clientesList.indexOf(c) + 1);
+            res.append(" {");
+
+            res.append("\n");
+            res.append(c.toString("\t"));
+
+            res.append(",\n\t\t");
+            res.append(c.getConta().toString("\t\t"));
+
+            res.append("\n\t");
+            res.append("}");
+
+            if (!clientesList.getLast().equals(c)) {
+                res.append(",");
+            }
+            res.append('\n');
+        }
+
+        res.append("]");
+
+        return res.toString();
     }
 
     /**
@@ -96,11 +132,17 @@ public class Estabelecimento extends Identificador {
             System.out.println("}\nTransacao de maior valor {\n\t" + transacaoDeMaiorValor().toString("\t"));
             System.out.println("}\nTransacao de menor valor {\n\t" + transacaoDeMenorValor().toString("\t"));
             System.out.println("}\nValor medio das transacoes: " + valorMedioTransacoes());
-            System.out.println("\nPercentagem de transacoes por metodo de pagamento {");
+            System.out.println("\nPercentagem de transacoes por metodo de pagamento (quantidade) {");
             System.out.println("\tCartao de Debito: " + percentagemMetodos()[0][1] + "% (" + percentagemMetodos()[0][0] + ")");
             System.out.println("\tCartao de Credito: " + percentagemMetodos()[1][1] + "% (" + percentagemMetodos()[1][0] + ")");
             System.out.println("\tMBWay: " + percentagemMetodos()[2][1] + "% (" + percentagemMetodos()[2][0] + ")");
             System.out.println("\tNumerario: " + percentagemMetodos()[3][1] + "% (" + percentagemMetodos()[3][0] + ")");
+            System.out.println("}");
+            System.out.println("\nPercentagem de transacoes por metodo de pagamento (valor) {");
+            System.out.println("\tCartao de Debito: " + percentagemMetodos()[0][3] + "% (" + percentagemMetodos()[0][2] + "€)");
+            System.out.println("\tCartao de Credito: " + percentagemMetodos()[1][3] + "% (" + percentagemMetodos()[1][2] + "€)");
+            System.out.println("\tMBWay: " + percentagemMetodos()[2][3] + "% (" + percentagemMetodos()[2][2] + "€)");
+            System.out.println("\tNumerario: " + percentagemMetodos()[3][3] + "% (" + percentagemMetodos()[3][2] + "€)");
             System.out.println("}");
         }
     }
@@ -195,10 +237,6 @@ public class Estabelecimento extends Identificador {
      * Devolve o valor médio das transações da lista.
      */
     private double valorMedioTransacoes() {
-        if (transacoesList.isEmpty()) {
-            return 0;
-        }
-
         double valorTotal = 0;
 
         for (Transacao t : transacoesList) {
@@ -213,24 +251,32 @@ public class Estabelecimento extends Identificador {
      * Formata todas as percentagens às centésimas.
      */
     private double[][] percentagemMetodos() {
-        double[][] metodos = new double[4][2];
+        double[][] metodos = new double[4][4];
 
         for (Transacao t : transacoesList) {
             if (t.getMetodoPagamento() instanceof Numerario) {
                 metodos[3][0]++;
-                metodos[3][1] = metodos[3][0] / transacoesList.size() * 100;
+                metodos[3][2] += t.getValor();
             } else if (t.getMetodoPagamento() instanceof MBWay) {
                 metodos[2][0]++;
-                metodos[2][1] = metodos[2][0] / transacoesList.size() * 100;
+                metodos[2][2] += t.getValor();
             } else if (t.getMetodoPagamento() instanceof CartaoCredito) {
                 metodos[1][0]++;
-                metodos[1][1] = metodos[1][0] / transacoesList.size() * 100;
+                metodos[1][2] += t.getValor();
             } else if (t.getMetodoPagamento() instanceof CartaoDebito) {
                 metodos[0][0]++;
-                metodos[0][1] = metodos[0][0] / transacoesList.size() * 100;
+                metodos[0][2] += t.getValor();
             }
         }
 
+        metodos[3][1] = metodos[3][0] / transacoesList.size() * 100;
+        metodos[2][1] = metodos[2][0] / transacoesList.size() * 100;
+        metodos[1][1] = metodos[1][0] / transacoesList.size() * 100;
+        metodos[0][1] = metodos[0][0] / transacoesList.size() * 100;
+        metodos[3][3] = metodos[3][2] / receitas * 100;
+        metodos[2][3] = metodos[2][2] / receitas * 100;
+        metodos[1][3] = metodos[1][2] / receitas * 100;
+        metodos[0][3] = metodos[0][2] / receitas * 100;
 
         DecimalFormat df = new DecimalFormat("#.##");
         for (int i = 0; i < metodos.length; i++) {
@@ -254,5 +300,12 @@ public class Estabelecimento extends Identificador {
      */
     public void registarTransacao() {
         Transacao.registarTransacao(this);
+    }
+
+    /**
+     * Devolve uma listagem das transações
+     */
+    public String listarTransacoes() {
+        return Transacao.listarTransacoes(transacoesList, "\t");
     }
 }

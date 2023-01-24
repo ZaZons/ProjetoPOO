@@ -14,9 +14,7 @@ public class Transacao implements Serializable {
         this.metodoPagamento = metodoPagamento;
         this.cliente = cliente;
         this.estabelecimento = estabelecimento;
-        if (estabelecimento != null) {
-            estabelecimento.addTransacao(this);
-        }
+        estabelecimento.addTransacao(this);
     }
 
     public double getValor() {
@@ -123,7 +121,7 @@ public class Transacao implements Serializable {
             System.out.println("ou \nNumerario (0)");
             System.out.println("\nSelecione um dos metodos de pagamento apresentados: ");
 
-            int tamanho = clienteTransacao.getConta().isTemNumerario() ? metodosCliente.size() - 1 : metodosCliente.size();
+            int tamanho = clienteTransacao.getConta().getTemNumerario() ? metodosCliente.size() - 1 : metodosCliente.size();
             int idSelecionado = Leitor.lerInteiro(0, tamanho);
             if (idSelecionado == 0) {
                 Numerario numerario = null;
