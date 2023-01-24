@@ -1,15 +1,8 @@
 import java.util.LinkedList;
 
 public class Cliente extends Identificador {
-    public static final long NIF_GENERICO = 999999990;
-    public static final String CLIENTE_GENERICO = "Consumidor final";
     private final long nif;
     private ContaBancaria conta;
-
-    public Cliente() {
-        super(CLIENTE_GENERICO);
-        this.nif = NIF_GENERICO;
-    }
 
     public Cliente(String nome, long nif, double saldoInicial) {
         super(nome);
