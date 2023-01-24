@@ -157,7 +157,7 @@ public class Transacao implements Serializable {
             }
         } while (metodoSelecionado == null);
 
-        metodoSelecionado.efetuarPagamento(valorTransacao, estabelecimento);
+        metodoSelecionado.efetuarPagamento(valorTransacao, estabelecimento, clienteTransacao);
     }
 
 }

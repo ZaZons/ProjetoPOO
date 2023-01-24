@@ -114,12 +114,10 @@ public class Estabelecimento extends Identificador {
         HashMap<Cliente, Integer> clientesETransacoes = new HashMap<>();
 
         for (Transacao t : transacoesList) {
-            if (t.getCliente().getNif() != Cliente.NIF_GENERICO) {
-                if (!clientesETransacoes.containsKey(t.getCliente())) {
-                    clientesETransacoes.put(t.getCliente(), 1);
-                } else {
-                    clientesETransacoes.put(t.getCliente(), clientesETransacoes.get(t.getCliente()) + 1);
-                }
+            if (!clientesETransacoes.containsKey(t.getCliente())) {
+                clientesETransacoes.put(t.getCliente(), 1);
+            } else {
+                clientesETransacoes.put(t.getCliente(), clientesETransacoes.get(t.getCliente()) + 1);
             }
         }
 

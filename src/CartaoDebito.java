@@ -24,7 +24,7 @@ public class CartaoDebito implements MetodoPagamento {
      * Continua o pagamento.
      */
     @Override
-    public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
+    public void efetuarPagamento(double valor, Estabelecimento estabelecimento, Cliente cliente) {
         if (valor > conta.getSaldo()) {
             System.out.println("Transacao rejeitada, saldo insuficiente");
             return;
@@ -74,11 +74,6 @@ public class CartaoDebito implements MetodoPagamento {
     protected void continuarPagamento(double valor, Estabelecimento estabelecimento) {
         Transacao transacao = new Transacao(valor, this, conta.getCliente(), estabelecimento);
         conta.addTransacao(transacao);
-    }
-
-    @Override
-    public String toString() {
-        return toString("");
     }
 
     /**

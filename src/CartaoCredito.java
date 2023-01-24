@@ -20,7 +20,7 @@ public class CartaoCredito extends CartaoDebito{
      * Continua o pagamento.
      */
     @Override
-    public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
+    public void efetuarPagamento(double valor, Estabelecimento estabelecimento, Cliente cliente) {
         if (!this.verificarLimite(valor)) {
             System.out.println("Transacao rejeitada, limite ultrapassado");
             return;

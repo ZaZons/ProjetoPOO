@@ -63,7 +63,7 @@ public class Main {
     public static Estabelecimento testValues() {
         // Estabelecimento e valores
         Estabelecimento e = new Estabelecimento("Cafe do Joao", 0);
-        Cliente clienteJoao = new Cliente("Joao Miguel", 423567543);
+        Cliente clienteJoao = new Cliente("Joao Miguel", 423567543, 15);
         Cliente clienteSantiago = new Cliente("Santiago Santos", 100583906, 50);
         Cliente clienteJoana = new Cliente("Joana Mira", 473625364, 100);
         Cliente clienteMatilde = new Cliente("Matilde Agostinho", 948374615, -3);

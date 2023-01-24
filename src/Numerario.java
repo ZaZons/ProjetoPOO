@@ -25,15 +25,14 @@ public class Numerario implements MetodoPagamento {
      * Regista o cliente da transação como "Consumidor final" e com NIF genérico.
      */
     @Override
-    public void efetuarPagamento(double valor, Estabelecimento estabelecimento) {
+    public void efetuarPagamento(double valor, Estabelecimento estabelecimento, Cliente cliente) {
         if (valorEntregue < valor) {
             System.out.println("Transacao rejeitada, valor entregue insuficiente");
             return;
         }
 
         valorEntregue -= valor;
-        Cliente clienteAnonimo = new Cliente();
-        Transacao transacao = new Transacao(valor, this, clienteAnonimo, estabelecimento);
+        Transacao transacao = new Transacao(valor, this, cliente, estabelecimento);
         estabelecimento.addTransacao(transacao);
     }
 }
